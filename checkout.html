@@ -510,6 +510,9 @@
         var cartaoDetails = document.getElementById('cartaoDetails');
         if (cartaoDetails) cartaoDetails.style.display = 'none';
         
+        // Variável para controle do pagamento PIX
+        var pagamentoPix = false;
+        
         // Listener para opções de pagamento
         document.querySelectorAll('input[name="pagamento"]').forEach(function(opt) {
             opt.addEventListener('change', function() {
@@ -522,8 +525,10 @@
                 
                 if (this.value === 'cartao' && cartaoDetails) {
                     cartaoDetails.style.display = 'block';
+                    pagamentoPix = false;
                 } else if (this.value === 'pix' && pixDetails) {
                     pixDetails.style.display = 'block';
+                    pagamentoPix = true;
                     calcularDescontoPIX();
                 }
             });
@@ -537,9 +542,13 @@
             var pixDesconto = subtotal * 0.10;
             var total = subtotal - pixDesconto + freight;
             
-            document.getElementById('pixDescontoRow').classList.add('show');
-            document.getElementById('pixDesconto').textContent = '- R$ ' + pixDesconto.toFixed(2).replace('.', ',');
-            document.getElementById('checkoutTotal').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+            var pixDescontoRow = document.getElementById('pixDescontoRow');
+            var pixDescontoEl = document.getElementById('pixDesconto');
+            var checkoutTotalEl = document.getElementById('checkoutTotal');
+            
+            if (pixDescontoRow) pixDescontoRow.classList.add('show');
+            if (pixDescontoEl) pixDescontoEl.textContent = '- R$ ' + pixDesconto.toFixed(2).replace('.', ',');
+            if (checkoutTotalEl) checkoutTotalEl.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
         }
         
         // Data mínima = hoje
@@ -598,6 +607,7 @@
         if (checkoutForm && modalSucesso) {
             checkoutForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
+                console.log('Formulário submetido');
                 
                 // Validar campos obrigatórios
                 var camposObrigatorios = ['nome', 'cpf', 'email', 'telefone', 'cep', 'endereco', 'numero', 'bairro', 'cidade', 'estado'];
@@ -611,7 +621,11 @@
                         el.style.borderColor = '#e8e8e8';
                     }
                 });
-                if (!valido) return;
+                if (!valido) {
+                    console.log('Validação falhou');
+                    return;
+                }
+                console.log('Validação OK');
                 
                 // Verificar login
                 var userData = localStorage.getItem('florAfetoUser');
@@ -620,14 +634,17 @@
                     window.location.href = 'conta.html';
                     return;
                 }
+                console.log('Usuário logado OK');
                 
                 var formaPagamento = document.querySelector('input[name="pagamento"]:checked').value;
+                console.log('Forma de pagamento:', formaPagamento);
                 var btn = document.querySelector('.btn-finalizar');
                 
                 // Se cartão, mostrar erro após 5 segundos
                 if (formaPagamento === 'cartao') {
                     btn.disabled = true;
                     btn.innerHTML = '<i class="ph ph-circle-notch" style="animation: spin 1s linear infinite;"></i> Analisando pagamento...';
+                    console.log('Processando cartão...');
                     
                     await new Promise(function(resolve) { setTimeout(resolve, 5000); });
                     
@@ -637,8 +654,10 @@
                     return;
                 } else {
                     btn.innerHTML = '<i class="ph ph-circle-notch" style="animation: spin 1s linear infinite;"></i> Processando...';
+                    console.log('Processando PIX ou outro método...');
                     await new Promise(function(resolve) { setTimeout(resolve, 2500); });
                 }
+                console.log('Processamento finalizado, mostrando modal...');
                 
                 var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
                 var pedidoNumero = Math.floor(10000 + Math.random() * 90000);
@@ -729,17 +748,22 @@
                 document.getElementById('pedidoValor').textContent = total;
                 
                 // Mostrar instruções PIX
+                console.log('Verificando PIX. formaPagamento:', formaPagamento);
                 if (formaPagamento === 'pix') {
                     var container = document.getElementById('pagamentoInstrucoes');
                     var content = document.getElementById('instrucoesContent');
+                    console.log('Container PIX:', container, 'Content:', content);
                     if (container && content) {
                         container.style.display = 'block';
                         content.innerHTML = '<p>CNPJ: 12.345.678/0001-90</p><p>Pedido: #' + pedidoNumero + '</p><p>Valor: ' + total + '</p>';
+                        console.log('Instruções PIX atualizadas');
                     }
                 }
                 
+                console.log('Mostrando modal...');
                 modalSucesso.style.display = 'flex';
                 modalSucesso.classList.add('show');
+                console.log('Modal mostrado!');
             });
         }
         

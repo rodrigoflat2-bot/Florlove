@@ -14,7 +14,7 @@ function initWhatsAppButton() {
     const whatsappBtn = document.createElement('div');
     whatsappBtn.className = 'whatsapp-float';
     whatsappBtn.innerHTML = `
-        <a href="https://wa.me/5531987654321?text=Olá! Gostaria de saber mais sobre os produtos da Flor & Afeto" target="_blank" rel="noopener noreferrer">
+        <a href="https://wa.me/5511924694745?text=Olá! Gostaria de saber mais sobre os produtos da Flor & Afeto" target="_blank" rel="noopener noreferrer">
             <i class="ph ph-whatsapp-logo"></i>
             <span class="whatsapp-tooltip">Fale conosco!</span>
         </a>
