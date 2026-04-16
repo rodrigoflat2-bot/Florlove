@@ -201,6 +201,22 @@
 
     <script src="conta.js"></script>
     <script>
+        // Função para toggle da senha (garantir que funcione)
+        function toggleSenha(inputId, btn) {
+            var input = document.getElementById(inputId);
+            var icon = btn.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('ph-eye');
+                icon.classList.add('ph-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('ph-eye-slash');
+                icon.classList.add('ph-eye');
+            }
+        }
+        
         // Check URL for mode parameter
         (function() {
             var params = new URLSearchParams(window.location.search);
