@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar | Flor & Afeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="conta.css">
+</head>
+<body>
+    <div class="conta-page">
+        <div class="conta-container">
+            <div class="conta-header">
+                <a href="index.html" class="logo">
+                    <span class="logo-script">Flor</span>
+                    <span class="logo-amp">&</span>
+                    <span class="logo-script">Afeto</span>
+                </a>
+                <h1>Bem-vindo de volta!</h1>
+                <p>Entre com sua conta para acompanhar seus pedidos</p>
+            </div>
+
+            <div class="conta-tabs">
+<button class="tab-btn active" data-tab="login" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); document.getElementById('login').classList.add('active'); document.getElementById('cadastro').classList.remove('active');">Entrar</button>
+                <button class="tab-btn" data-tab="cadastro" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); document.getElementById('cadastro').classList.add('active'); document.getElementById('login').classList.remove('active');">Criar Conta</button>
+            </div>
+
+            <div class="tab-content active" id="login">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">
+                            <i class="ph ph-envelope"></i> E-mail
+                        </label>
+                        <input type="email" id="loginEmail" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginSenha">
+                            <i class="ph ph-lock"></i> Senha
+                        </label>
+                        <div class="input-senha">
+                            <input type="password" id="loginSenha" required placeholder="Sua senha" minlength="6">
+                            <button type="button" class="toggle-senha" onclick="toggleSenha('loginSenha', this)">
+                                <i class="ph ph-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-custom">
+                            <input type="checkbox" id="lembrar">
+                            <span class="checkmark"></span>
+                            Lembrar-me
+                        </label>
+                        <a href="#" class="link-secondary">Esqueci minha senha</a>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" onclick="testLogin()">
+                        <span>Entrar</span>
+                        <i class="ph ph-sign-in"></i>
+                    </button>
+                    <script>
+                        function testLogin() {
+                            var email = document.getElementById('loginEmail').value;
+                            var senha = document.getElementById('loginSenha').value;
+                            
+                            if (!email || !senha) {
+                                alert('Preencha email e senha!');
+                                return;
+                            }
+                            
+                            // Check if user exists in users list
+                            var usuarios = JSON.parse(localStorage.getItem('florAfetoUsers')) || [];
+                            var usuario = usuarios.find(function(u) { return u.email === email && u.senha === senha; });
+                            
+                            if (usuario) {
+                                localStorage.setItem('florAfetoUser', JSON.stringify(usuario));
+                                var userStr = JSON.stringify(usuario);
+                                var encoded = encodeURIComponent(userStr);
+                                window.location.href = 'minha-conta.html?user=' + encoded;
+                            } else {
+                                alert('E-mail ou senha incorretos!');
+                            }
+                        }
+                    </script>
+                </form>
+                <div class="login-demo">
+                    <p><i class="ph ph-info"></i> Demo: use qualquer e-mail e senha com 6+ caracteres</p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="cadastro">
+                <form id="cadastroForm">
+                    <div class="form-group">
+                        <label for="cadNome">
+                            <i class="ph ph-user"></i> Nome Completo
+                        </label>
+                        <input type="text" id="cadNome" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="cadEmail">
+                            <i class="ph ph-envelope"></i> E-mail
+                        </label>
+                        <input type="email" id="cadEmail" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="cadTelefone">
+                            <i class="ph ph-phone"></i> Telefone
+                        </label>
+                        <input type="tel" id="cadTelefone" required placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="cadSenha">
+                            <i class="ph ph-lock"></i> Senha
+                        </label>
+                        <div class="input-senha">
+                            <input type="password" id="cadSenha" required placeholder="Mínimo 6 caracteres" minlength="6">
+                            <button type="button" class="toggle-senha" onclick="toggleSenha('cadSenha', this)">
+                                <i class="ph ph-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cadConfirma">
+                            <i class="ph ph-lock"></i> Confirmar Senha
+                        </label>
+                        <div class="input-senha">
+                            <input type="password" id="cadConfirma" required placeholder="Repita a senha" minlength="6">
+                            <button type="button" class="toggle-senha" onclick="toggleSenha('cadConfirma', this)">
+                                <i class="ph ph-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="checkbox-custom termo">
+                        <input type="checkbox" id="termos" required>
+                        <span class="checkmark"></span>
+                        Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>
+                    </label>
+<button type="button" class="btn btn-primary btn-block" onclick="criarConta()">
+                        <span>Criar Conta</span>
+                        <i class="ph ph-user-plus"></i>
+                    </button>
+                    <script>
+                        function criarConta() {
+                            var nome = document.getElementById('cadNome').value;
+                            var email = document.getElementById('cadEmail').value;
+                            var telefone = document.getElementById('cadTelefone').value;
+                            var senha = document.getElementById('cadSenha').value;
+                            var confirma = document.getElementById('cadConfirma').value;
+                            var termos = document.getElementById('termos').checked;
+                            
+                            if (!nome || !email || !telefone || !senha) {
+                                alert('Preencha todos os campos!');
+                                return;
+                            }
+                            if (senha !== confirma) {
+                                alert('As senhas não coincidem!');
+                                return;
+                            }
+                            if (!termos) {
+                                alert('Aceite os termos!');
+                                return;
+                            }
+                            
+                            var user = {
+                                id: Date.now(),
+                                nome: nome,
+                                email: email,
+                                telefone: telefone,
+                                senha: senha,
+                                dataCadastro: new Date().toISOString(),
+                                pedidos: [],
+                                endereco: {}
+                            };
+                            
+                            // Save to users list
+                            var usuarios = JSON.parse(localStorage.getItem('florAfetoUsers')) || [];
+                            usuarios.push(user);
+                            localStorage.setItem('florAfetoUsers', JSON.stringify(usuarios));
+                            
+                            // Auto-login
+                            localStorage.setItem('florAfetoUser', JSON.stringify(user));
+                            
+                            alert('Conta criada com sucesso!');
+                            
+                            // Redirect to minha-conta.html
+                            var userStr = JSON.stringify(user);
+                            var encoded = encodeURIComponent(userStr);
+                            window.location.href = 'minha-conta.html?user=' + encoded;
+                        }
+                    </script>
+                </form>
+            </div>
+        </div>
+        
+        <div class="conta-bg">
+            <div class="bg-overlay"></div>
+        </div>
+    </div>
+
+    <script src="conta.js"></script>
+    <script>
+        // Check URL for mode parameter
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var mode = params.get('mode');
+            
+            if (mode === 'register') {
+                document.getElementById('cadastro').classList.add('active');
+                document.getElementById('login').classList.remove('active');
+                document.querySelector('[data-tab="cadastro"]').classList.add('active');
+                document.querySelector('[data-tab="login"]').classList.remove('active');
+            }
+        })();
+        
+        // Format phone input
+        var telInput = document.getElementById('cadTelefone');
+        if (telInput) {
+            telInput.addEventListener('input', function(e) {
+                var value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+                if (value.length > 6) {
+                    value = '(' + value.slice(0, 2) + ') ' + value.slice(2, 7) + '-' + value.slice(7);
+                } else if (value.length > 2) {
+                    value = '(' + value.slice(0, 2) + ') ' + value.slice(2);
+                }
+                e.target.value = value;
+            });
+        }
+        
+        // Allow Enter key to submit
+        document.getElementById('loginForm').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                testLogin();
+            }
+        });
+    </script>
+</body>
+</html>

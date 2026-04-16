@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flor & Afeto - Cestas de café da manhã, buquês de flores e presentes românticos. Surpreenda quem você ama!">
+    <title>Todos os Produtos | Flor & Afeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="produtos.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-script">Flor</span>
+                <span class="logo-amp">&</span>
+                <span class="logo-script">Afeto</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Início</a></li>
+                    <li><a href="index.html#categorias" class="nav-link">Categorias</a></li>
+                    <li><a href="produtos.html" class="nav-link active">Produtos</a></li>
+                    <li><a href="index.html#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="minha-conta.html" class="action-btn" aria-label="Minha Conta" title="Minha Conta">
+                    <i class="ph ph-user"></i>
+                </a>
+                <a href="carrinho.html" class="action-btn cart-btn" aria-label="Carrinho">
+                    <i class="ph ph-tote"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="produtos-page">
+        <section class="page-hero">
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="index.html">Início</a>
+                    <i class="ph ph-caret-right"></i>
+                    <span>Produtos</span>
+                </nav>
+                <h1 class="page-title">Nossos Produtos</h1>
+                <p class="page-subtitle">Explore toda a nossa coleção de presentes especiais</p>
+            </div>
+        </section>
+
+        <section class="filtros-section">
+            <div class="container">
+                <div class="category-buttons">
+                    <button class="category-btn active" data-categoria="todos" onclick="filtrarCategoria('todos', this)">
+                        <i class="ph ph-storefront"></i>
+                        Todos
+                    </button>
+                    <button class="category-btn" data-categoria="cestas" onclick="filtrarCategoria('cestas', this)">
+                        <i class="ph ph-coffee"></i>
+                        Cestas de Café
+                    </button>
+                    <button class="category-btn" data-categoria="flores" onclick="filtrarCategoria('flores', this)">
+                        <i class="ph ph-flower"></i>
+                        Buquês de Flores
+                    </button>
+                    <button class="category-btn" data-categoria="romantico" onclick="filtrarCategoria('romantico', this)">
+                        <i class="ph ph-heart"></i>
+                        Presentes Românticos
+                    </button>
+                </div>
+                <div class="filtros">
+                    <div class="filtro-grupo">
+                        <label>Ordenar por:</label>
+                        <select id="ordemFilter">
+                            <option value="relevancia">Relevância</option>
+                            <option value="menor-preco">Menor Preço</option>
+                            <option value="maior-preco">Maior Preço</option>
+                            <option value="nome">Nome A-Z</option>
+                        </select>
+                    </div>
+                    <div class="resultados-count">
+                        <span id="resultadosCount">24 produtos encontrados</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="todos-produtos">
+            <div class="container">
+                <div class="produtos-grid-full" id="produtosGrid">
+                </div>
+                
+                <div class="pagination" id="pagination">
+                    <button class="page-btn active" data-page="1">1</button>
+                    <button class="page-btn" data-page="2">2</button>
+                    <button class="page-btn" data-page="3">3</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-script">Flor</span>
+                        <span class="logo-amp">&</span>
+                        <span class="logo-script">Afeto</span>
+                    </a>
+                    <p>Transformando momentos comuns em memórias extraordinárias desde 2019.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="carrinho.html">Carrinho</a></li>
+                        <li><a href="index.html#sobre">Sobre</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Cestas de Café</a></li>
+                        <li><a href="#">Buquês de Flores</a></li>
+                        <li><a href="#">Presentes Românticos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Atendimento</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Política de Entrega</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">WhatsApp: (31) 98765-4321</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Flor & Afeto. Todos os direitos reservados.</p>
+                <div class="footer-payments">
+                    <i class="ph ph-credit-card"></i>
+                    <span>Cartão</span>
+                    <i class="ph ph-barcode"></i>
+                    <span>PIX</span>
+                    <i class="ph ph-bank"></i>
+                    <span>Boleto</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="ph ph-check-circle"></i>
+            <div>
+                <strong>Adicionado ao carrinho!</strong>
+                <span id="toastProduct">Produto</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="produto-modal" id="produtoModal">
+        <div class="produto-modal-overlay" onclick="fecharProdutoModal()"></div>
+        <div class="produto-modal-content">
+            <button class="produto-modal-close" onclick="fecharProdutoModal()">
+                <i class="ph ph-x"></i>
+            </button>
+            <img id="modalImagem" src="" alt="">
+            <div class="produto-modal-info">
+                <span class="produto-modal-categoria" id="modalCategoria"></span>
+                <h2 class="produto-modal-title" id="modalNome"></h2>
+                <p class="produto-modal-desc" id="modalDescricao"></p>
+                <div class="produto-modal-inclui">
+                    <h4><i class="ph ph-gift"></i> O que está incluído:</h4>
+                    <ul id="modalItens"></ul>
+                </div>
+                <div class="produto-modal-politica">
+                    <div class="politica-item">
+                        <h4><i class="ph ph-heart-message"></i> Dedicatória/Mensagem</h4>
+                        <p>É possível incluir uma mensagem junto ao seu presente! Prossiga com a compra e no campo dados de entrega basta digitar a sua mensagem. Não esqueça de assinar o cartão!<br><br>Caso queira enviar Anonimamente Selecione "Não Quero Mensagem" ou Digite sua mensagem e não assine o cartão. Este campo se encontra na última etapa de seu pedido.</p>
+                    </div>
+                    <div class="politica-item">
+                        <h4><i class="ph ph-arrow-counter-clockwise"></i> Política de Troca</h4>
+                        <p>Por se tratar de produtos perecíveis e sazonais, os mesmos podem variar de acordo com a época do ano, estação vigente ou climas inesperados. Porém prezamos ao máximo para enviar nossos arranjos com qualidade excepcional, flores frescas e embaladas com todo carinho e segurança. Poderá em alguns casos haver substituições para que o pedido seja entregue dentro do nosso padrão e prazo requisitado.</p>
+                    </div>
+                </div>
+                <div class="produto-modal-preco">
+                    <span class="preco-antigo" id="modalPrecoAntigo"></span>
+                    <span class="preco-atual" id="modalPreco"></span>
+                </div>
+                <button class="btn btn-primary btn-add-cart" id="modalAddCart">
+                    <i class="ph ph-shopping-bag"></i>
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="produtos-data.js"></script>
+    <script src="produtos.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flor & Afeto - Carrinho de Compras">
+    <title>Carrinho | Flor & Afeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carrinho.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-script">Flor</span>
+                <span class="logo-amp">&</span>
+                <span class="logo-script">Afeto</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Início</a></li>
+                    <li><a href="index.html#categorias" class="nav-link">Categorias</a></li>
+                    <li><a href="produtos.html" class="nav-link">Produtos</a></li>
+                    <li><a href="index.html#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="minha-conta.html" class="action-btn" aria-label="Minha Conta" title="Minha Conta">
+                    <i class="ph ph-user"></i>
+                </a>
+                <a href="carrinho.html" class="action-btn cart-btn active" aria-label="Carrinho">
+                    <i class="ph ph-tote"></i>
+                    <span class="cart-count" id="cartCountHeader">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="carrinho-page">
+        <section class="page-hero">
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="index.html">Início</a>
+                    <i class="ph ph-caret-right"></i>
+                    <span>Carrinho</span>
+                </nav>
+                <h1 class="page-title">Seu Carrinho</h1>
+                <p class="page-subtitle" id="cartSubtitle">0 itens no seu carrinho</p>
+            </div>
+        </section>
+
+        <section class="carrinho-section">
+            <div class="container">
+                <div class="carrinho-layout" id="carrinhoContent">
+                    <div class="carrinho-itens" id="carrinhoItens">
+                    </div>
+                    
+                    <div class="carrinho-resumo" id="carrinhoResumo">
+                        <h3>Resumo do Pedido</h3>
+                        <div class="resumo-items">
+                            <div class="resumo-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">R$ 0,00</span>
+                            </div>
+                            <div class="resumo-row">
+                                <span>Frete</span>
+                                <span id="frete">Calculado no checkout</span>
+                            </div>
+                            <div class="resumo-row desconto" id="descontoRow" style="display: none;">
+                                <span>Desconto</span>
+                                <span id="desconto">- R$ 0,00</span>
+                            </div>
+                        </div>
+                        <div class="resumo-total">
+                            <span>Total</span>
+                            <span id="total">R$ 0,00</span>
+                        </div>
+                        <div class="cupom-section">
+                            <div class="cupom-input">
+                                <input type="text" id="cupomInput" placeholder="Código do cupom">
+                                <button id="aplicarCupom">Aplicar</button>
+                            </div>
+                            <p class="cupom-message" id="cupomMessage"></p>
+                        </div>
+                        <a href="checkout.html" class="btn btn-primary btn-block btn-checkout" id="btnCheckout">
+                            <span>Finalizar Compra</span>
+                            <i class="ph ph-arrow-right"></i>
+                        </a>
+                        <a href="produtos.html" class="btn btn-secondary btn-block">
+                            <i class="ph ph-arrow-left"></i>
+                            <span>Continuar Comprando</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="carrinho-vazio" id="carrinhoVazio">
+                    <div class="vazio-icon">
+                        <i class="ph ph-shopping-bag"></i>
+                    </div>
+                    <h2>Seu carrinho está vazio</h2>
+                    <p>Que tal começar a explorar nossos produtos?</p>
+                    <a href="produtos.html" class="btn btn-primary">
+                        <span>Ver Produtos</span>
+                        <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="produtos-relacionados">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Combine bem</span>
+                <h2 class="section-title">Você também pode gostar</h2>
+            </div>
+            <div class="relacionados-grid" id="relacionadosGrid">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-script">Flor</span>
+                        <span class="logo-amp">&</span>
+                        <span class="logo-script">Afeto</span>
+                    </a>
+                    <p>Transformando momentos comuns em memórias extraordinárias desde 2019.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="carrinho.html">Carrinho</a></li>
+                        <li><a href="index.html#sobre">Sobre</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Cestas de Café</a></li>
+                        <li><a href="#">Buquês de Flores</a></li>
+                        <li><a href="#">Presentes Românticos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Atendimento</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Política de Entrega</a></li>
+                        <li><a href="#">WhatsApp: (31) 98765-4321</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Flor & Afeto. Todos os direitos reservados.</p>
+                <div class="footer-payments">
+                    <i class="ph ph-credit-card"></i>
+                    <i class="ph ph-barcode"></i>
+                    <i class="ph ph-bank"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="ph ph-check-circle"></i>
+            <div>
+                <strong id="toastTitle">Atualizado!</strong>
+                <span id="toastProduct">Produto</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="produtos-data.js"></script>
+    <script src="carrinho.js"></script>
+</body>
+</html>

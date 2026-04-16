@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta | Flor & Afeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Nunito', sans-serif; background: #FDF8F5; }
+        :root { --primary: #D4A574; --primary-dark: #c49565; --text: #4a3f3b; }
+        .header { background: #fff; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--text); text-decoration: none; }
+        .logo-amp { font-family: 'Playfair Display', serif; color: var(--primary); margin: 0 2px; }
+        .nav-list { display: flex; list-style: none; gap: 25px; }
+        .nav-list a { text-decoration: none; color: var(--text); font-weight: 600; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .user-menu { position: relative; }
+        .user-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; color: var(--text); }
+        .user-dropdown { display: none; position: absolute; top: 100%; right: 0; background: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); min-width: 180px; z-index: 100; }
+        .user-dropdown a { display: block; padding: 12px 20px; text-decoration: none; color: var(--text); }
+        .user-dropdown a:hover { background: #f5f5f5; }
+        .user-menu:hover .user-dropdown { display: block; }
+        .cart-btn { position: relative; color: var(--text); font-size: 1.5rem; text-decoration: none; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--primary); color: #fff; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; }
+        .conta-page { padding: 40px 0; }
+        .conta-wrapper { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+        .conta-sidebar { background: #fff; border-radius: 16px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .user-card { text-align: center; padding: 25px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 12px; color: #fff; margin-bottom: 20px; }
+        .user-card i { font-size: 3rem; margin-bottom: 10px; }
+        .user-card span { font-size: 1.2rem; font-weight: 600; display: block; }
+        .conta-nav { display: flex; flex-direction: column; gap: 5px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 8px; text-decoration: none; color: var(--text); font-weight: 600; transition: 0.2s; }
+        .nav-item:hover { background: #f5f5f5; }
+        .nav-item.active { background: var(--primary); color: #fff; }
+        .conta-main { background: #fff; border-radius: 16px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .section-header { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .section-header h2 { display: flex; align-items: center; gap: 10px; color: var(--text); font-size: 1.4rem; }
+        .dados-card { display: grid; gap: 20px; }
+        .dados-row { display: grid; grid-template-columns: 100px 1fr; gap: 15px; align-items: center; padding: 15px; background: #fafafa; border-radius: 8px; }
+        .dados-row label { color: #888; font-weight: 600; }
+        .dados-row span { color: var(--text); }
+        .conta-section { display: none; }
+        .conta-section.active { display: block; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; }
+        .whatsapp-float a { color: #fff; font-size: 1.8rem; }
+        @media(max-width: 768px) {
+            .conta-wrapper { grid-template-columns: 1fr; }
+            .nav-list { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">Flor<span class="logo-amp">&</span>Afeto</a>
+            <ul class="nav-list">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="carrinho.html" class="cart-btn">
+                    <i class="ph ph-tote"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <div class="user-menu" id="userMenu">
+                    <button class="user-btn" id="userBtn">
+                        <i class="ph ph-user-circle"></i>
+                        <span id="userName">Minha Conta</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="conta-page">
+        <div class="container">
+            <div class="conta-wrapper">
+                <aside class="conta-sidebar">
+                    <div class="user-card">
+                        <i class="ph ph-user-circle"></i>
+                        <span id="sidebarUserName">Visitante</span>
+                    </div>
+                    <nav class="conta-nav">
+                        <a href="#" class="nav-item active" data-tab="dados">
+                            <i class="ph ph-user"></i> Meus Dados
+                        </a>
+                        <a href="#" class="nav-item" data-tab="pedidos">
+                            <i class="ph ph-package"></i> Meus Pedidos
+                        </a>
+                        <a href="#" class="nav-item" data-tab="enderecos">
+                            <i class="ph ph-map-pin"></i> Endereços
+                        </a>
+                    </nav>
+                </aside>
+                <div class="conta-main">
+                    <section class="conta-section active" id="section-dados">
+                        <div class="section-header">
+                            <h2><i class="ph ph-user"></i> Meus Dados</h2>
+                        </div>
+                        <div class="dados-card" id="dadosCard">
+                            <div class="dados-row">
+                                <label>Nome</label>
+                                <span id="infoNome">-</span>
+                            </div>
+                            <div class="dados-row">
+                                <label>E-mail</label>
+                                <span id="infoEmail">-</span>
+                            </div>
+                            <div class="dados-row">
+                                <label>Telefone</label>
+                                <span id="infoTelefone">-</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="conta-section" id="section-pedidos">
+                        <div class="section-header">
+                            <h2><i class="ph ph-package"></i> Meus Pedidos</h2>
+                        </div>
+                        <div id="pedidosLista">
+                            <p style="color: #888;">Carregando pedidos...</p>
+                        </div>
+                    </section>
+
+                    <section class="conta-section" id="section-enderecos">
+                        <div class="section-header">
+                            <h2><i class="ph ph-map-pin"></i> Meus Endereços</h2>
+                        </div>
+                        <p style="color: #888;">Nenhum endereço cadastrado.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5531987654321?text=Olá!" target="_blank">
+            <i class="ph ph-whatsapp-logo"></i>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Load user from URL or localStorage
+        var p = new URLSearchParams(window.location.search);
+        var u = p.get('user');
+        
+        if (u) {
+            window.currentUser = JSON.parse(decodeURIComponent(u));
+            localStorage.setItem('florAfetoUser', JSON.stringify(window.currentUser));
+        } else {
+            var saved = localStorage.getItem('florAfetoUser');
+            if (saved) window.currentUser = JSON.parse(saved);
+        }
+        
+        if (window.location.search.indexOf('user=') > -1) {
+            window.history.replaceState({}, '', window.location.pathname);
+        }
+        
+        // Update UI
+        if (window.currentUser) {
+            var nome = window.currentUser.nome || window.currentUser.email;
+            document.getElementById('userName').textContent = nome;
+            document.getElementById('sidebarUserName').textContent = nome;
+            document.getElementById('infoNome').textContent = window.currentUser.nome || '-';
+            document.getElementById('infoEmail').textContent = window.currentUser.email || '-';
+            document.getElementById('infoTelefone').textContent = window.currentUser.telefone || 'Não cadastrado';
+            document.getElementById('userDropdown').style.display = 'block';
+        }
+        
+        // Tab navigation
+        document.querySelectorAll('.nav-item').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var tab = this.getAttribute('data-tab');
+                
+                document.querySelectorAll('.nav-item').forEach(function(l) {
+                    l.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                document.querySelectorAll('.conta-section').forEach(function(s) {
+                    s.classList.remove('active');
+                });
+                document.getElementById('section-' + tab).classList.add('active');
+            });
+        });
+        
+        // Switch to tab from URL parameter
+        var tabParam = p.get('tab');
+        if (tabParam === 'pedidos') {
+            var pedidosNav = document.querySelector('[data-tab="pedidos"]');
+            if (pedidosNav) {
+                document.querySelectorAll('.nav-item').forEach(function(l) {
+                    l.classList.remove('active');
+                });
+                document.querySelectorAll('.conta-section').forEach(function(s) {
+                    s.classList.remove('active');
+                });
+                pedidosNav.classList.add('active');
+                document.getElementById('section-pedidos').classList.add('active');
+            }
+        }
+        
+        // Logout
+        window.logout = function() {
+            localStorage.removeItem('florAfetoUser');
+            window.location.href = 'conta.html';
+        };
+        
+        // Load and display orders
+        function loadPedidos() {
+            var pedidosContainer = document.getElementById('pedidosLista');
+            if (!window.currentUser || !window.currentUser.pedidos || window.currentUser.pedidos.length === 0) {
+                pedidosContainer.innerHTML = '<p style="color: #888; text-align: center; padding: 40px 0;">Você ainda não fez nenhum pedido.</p>';
+                return;
+            }
+            
+            var pedidos = window.currentUser.pedidos;
+            var html = '';
+            
+            pedidos.forEach(function(pedido) {
+                var data = new Date(pedido.data);
+                var dataFormatada = pedido.dataFormatada || data.toLocaleDateString('pt-BR');
+                var horaFormatada = pedido.horaFormatada || data.toLocaleTimeString('pt-BR');
+                var statusClass = '';
+                var statusTexto = '';
+                
+                switch(pedido.status) {
+                    case 'pendente':
+                        statusClass = 'status-pendente';
+                        statusTexto = 'Aguardando Pagamento';
+                        break;
+                    case 'confirmado':
+                        statusClass = 'status-confirmado';
+                        statusTexto = 'Pagamento Confirmado';
+                        break;
+                    case 'enviado':
+                        statusClass = 'status-enviado';
+                        statusTexto = 'Em Trânsito';
+                        break;
+                    case 'entregue':
+                        statusClass = 'status-entregue';
+                        statusTexto = 'Entregue';
+                        break;
+                    case 'cancelado':
+                        statusClass = 'status-cancelado';
+                        statusTexto = 'Cancelado';
+                        break;
+                    default:
+                        statusClass = 'status-pendente';
+                        statusTexto = pedido.status || 'Aguardando';
+                }
+                
+                var pagamentoTexto = pedido.pagamentoTexto || '';
+                if (!pagamentoTexto) {
+                    if (pedido.pagamento === 'pix') pagamentoTexto = 'PIX (10% desconto)';
+                    else if (pedido.pagamento === 'cartao') pagamentoTexto = 'Cartão de Crédito';
+                    else pagamentoTexto = pedido.pagamento || '-';
+                }
+                
+                var itensHtml = '';
+                if (pedido.itens && pedido.itens.length > 0) {
+                    pedido.itens.forEach(function(item) {
+                        itensHtml += '<div class="pedido-item">' +
+                            '<span>' + item.quantidade + 'x ' + item.nome + '</span>' +
+                            '<span>R$ ' + (item.preco * item.quantidade).toFixed(2).replace('.', ',') + '</span>' +
+                        '</div>';
+                    });
+                }
+                
+                var enderecoHtml = '';
+                if (pedido.endereco) {
+                    var end = pedido.endereco;
+                    enderecoHtml = '<div class="pedido-endereco">' +
+                        '<strong><i class="ph ph-map-pin"></i> Endereço de entrega:</strong>' +
+                        (end.rua || '') + ', ' + (end.numero || '') + 
+                        (end.complemento ? ' - ' + end.complemento : '') + '<br>' +
+                        (end.bairro || '') + ' - ' + (end.cidade || '') + '/' + (end.estado || '') +
+                        (end.cep ? ' - CEP: ' + end.cep : '') +
+                    '</div>';
+                }
+                
+                var paymentIcon = '';
+                if (pedido.pagamento === 'pix') paymentIcon = '<i class="ph ph-qr-code"></i>';
+                else if (pedido.pagamento === 'cartao') paymentIcon = '<i class="ph ph-credit-card"></i>';
+                else paymentIcon = '<i class="ph ph-wallet"></i>';
+                
+                var observacaoHtml = '';
+                if (pedido.observacao && pedido.observacao.trim()) {
+                    observacaoHtml = '<div class="pedido-observacao">' +
+                        '<strong><i class="ph ph-chat-circle-text"></i> Mensagem para presente:</strong>' +
+                        '<p>' + pedido.observacao + '</p>' +
+                    '</div>';
+                }
+                
+                var entregaHtml = '';
+                if (pedido.dataEntrega || pedido.horarioEntrega) {
+                    entregaHtml = '<div class="pedido-entrega">' +
+                        '<strong><i class="ph ph-truck"></i> Agendamento de Entrega:</strong>' +
+                        '<span><i class="ph ph-calendar-check"></i> Data: ' + (pedido.dataEntrega || 'A combinar') + '</span>' +
+                        '<span><i class="ph ph-clock"></i> Horário: ' + (pedido.horarioEntrega || 'A combinar') + '</span>' +
+                    '</div>';
+                }
+                
+                var clienteHtml = '';
+                if (pedido.cliente) {
+                    clienteHtml = '<div class="pedido-cliente">' +
+                        '<strong><i class="ph ph-user"></i> Dados do Cliente:</strong>' +
+                        '<span>Nome: ' + (pedido.cliente.nome || '-') + '</span>' +
+                        '<span>E-mail: ' + (pedido.cliente.email || '-') + '</span>' +
+                        '<span>Telefone: ' + (pedido.cliente.telefone || '-') + '</span>' +
+                        '<span>CPF: ' + (pedido.cliente.cpf || '-') + '</span>' +
+                    '</div>';
+                }
+                
+                var subtotalFreteHtml = '';
+                if (pedido.subtotal || pedido.frete) {
+                    subtotalFreteHtml = '<div class="pedido-valores">' +
+                        '<div class="valor-row"><span>Subtotal:</span><span>' + (pedido.subtotal || '-') + '</span></div>' +
+                        '<div class="valor-row"><span>Frete:</span><span>' + (pedido.frete || 'Grátis') + '</span></div>';
+                    if (pedido.descontoPix) {
+                        subtotalFreteHtml += '<div class="valor-row desconto"><span>Desconto PIX:</span><span>' + pedido.descontoPix + '</span></div>';
+                    }
+                    subtotalFreteHtml += '</div>';
+                }
+                
+                html += '<div class="pedido-card">' +
+                    '<div class="pedido-header">' +
+                        '<div class="pedido-info">' +
+                            '<span class="pedido-numero"><i class="ph ph-package"></i> Pedido #' + pedido.numero + '</span>' +
+                            '<span class="pedido-data"><i class="ph ph-calendar"></i> ' + dataFormatada + ' às ' + horaFormatada + '</span>' +
+                        '</div>' +
+                        '<span class="pedido-status ' + statusClass + '">' + statusTexto + '</span>' +
+                    '</div>' +
+                    '<div class="pedido-body">' +
+                        clienteHtml +
+                        '<div class="pedido-detalhes-grid">' +
+                            '<div class="pedido-itens">' +
+                                '<h4><i class="ph ph-gift"></i> Produtos Pedidos</h4>' +
+                                itensHtml +
+                            '</div>' +
+                            '<div class="pedido-resumo">' +
+                                '<h4><i class="ph ph-receipt"></i> Resumo</h4>' +
+                                '<div class="pedido-pagamento">' +
+                                    paymentIcon +
+                                    '<span>' + pagamentoTexto + '</span>' +
+                                '</div>' +
+                                subtotalFreteHtml +
+                                '<div class="pedido-total-box">' +
+                                    '<span>Total Pago:</span>' +
+                                    '<strong>' + pedido.total + '</strong>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        entregaHtml +
+                        enderecoHtml +
+                        observacaoHtml +
+                    '</div>' +
+                '</div>';
+            });
+            
+            pedidosContainer.innerHTML = html;
+        }
+        
+        loadPedidos();
+        
+        // Update cart count
+        var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
+        document.getElementById('cartCount').textContent = cart.length;
+    </script>
+    <style>
+        .pedido-card {
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            background: #fff;
+        }
+        .pedido-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .pedido-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .pedido-numero {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .pedido-data {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .pedido-status {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #fff;
+        }
+        .status-pendente { color: #856404; background: #fff3cd; }
+        .status-confirmado { color: #155724; background: #d4edda; }
+        .status-enviado { color: #004085; background: #cce5ff; }
+        .status-entregue { color: #155724; background: #d4edda; }
+        .status-cancelado { color: #721c24; background: #f8d7da; }
+        .pedido-body {
+            padding: 24px;
+        }
+        .pedido-cliente {
+            background: #f0f7ff;
+            border: 1px solid #d0e0ff;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .pedido-cliente strong {
+            color: #004085;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .pedido-cliente span {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-left: 28px;
+            line-height: 1.6;
+        }
+        .pedido-detalhes-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .pedido-itens {
+            background: #fafafa;
+            padding: 16px;
+            border-radius: 12px;
+        }
+        .pedido-itens h4 {
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pedido-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .pedido-item:last-child {
+            border-bottom: none;
+        }
+        .pedido-item span:first-child {
+            color: var(--text);
+        }
+        .pedido-item span:last-child {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .pedido-resumo {
+            background: #fdf8f5;
+            border: 2px solid var(--primary);
+            padding: 16px;
+            border-radius: 12px;
+        }
+        .pedido-resumo h4 {
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pedido-pagamento {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #fff;
+            border-radius: 8px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .pedido-pagamento i {
+            color: var(--primary);
+        }
+        .pedido-valores {
+            background: #fff;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .valor-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .valor-row.desconto {
+            color: #27ae60;
+        }
+        .pedido-total-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--primary);
+            border-radius: 8px;
+            color: #fff;
+        }
+        .pedido-total-box span {
+            font-size: 0.9rem;
+        }
+        .pedido-total-box strong {
+            font-size: 1.2rem;
+        }
+        .pedido-entrega {
+            background: #fff9e6;
+            border: 1px solid #ffe082;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .pedido-entrega strong {
+            color: #856404;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .pedido-entrega span {
+            display: block;
+            font-size: 0.95rem;
+            color: #666;
+            margin-left: 28px;
+            line-height: 1.8;
+        }
+        .pedido-entrega span i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+        .pedido-endereco {
+            background: linear-gradient(135deg, #fdf8f5, #fff);
+            border: 1px solid #e8ddd5;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .pedido-endereco strong {
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .pedido-endereco strong i {
+            color: var(--primary);
+        }
+        .pedido-endereco {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #555;
+        }
+        .pedido-observacao {
+            background: #fff5f5;
+            border: 1px solid #ffcdd2;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .pedido-observacao strong {
+            color: #c62828;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .pedido-observacao p {
+            font-style: italic;
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+            padding: 12px;
+            background: #fff;
+            border-radius: 8px;
+            border-left: 4px solid #c62828;
+        }
+        @media (max-width: 768px) {
+            .pedido-detalhes-grid {
+                grid-template-columns: 1fr;
+            }
+            .pedido-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</body>
+</html>

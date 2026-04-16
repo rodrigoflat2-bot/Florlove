@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flor & Afeto - Cestas de café da manhã, buquês de flores e presentes românticos. Surpreenda quem você ama!">
+    <title>Flor & Afeto | Presentes que Encantam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <span class="logo-script">Flor</span>
+                <span class="logo-amp">&</span>
+                <span class="logo-script">Afeto</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Início</a></li>
+                    <li><a href="#categorias" class="nav-link">Categorias</a></li>
+                    <li><a href="#produtos" class="nav-link">Produtos</a></li>
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="conta.html" class="btn-entrar-header" id="btnEntrarHeader" style="background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                    Entrar / Criar Conta
+                </a>
+                <a href="carrinho.html" class="action-btn cart-btn" aria-label="Carrinho">
+                    <i class="ph ph-tote"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="welcome-banner" id="welcomeBanner" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 15px; text-align: center; display: none;">
+        <div class="container">
+            <p>Olá, <strong id="welcomeName"></strong>! Bem-vindo de volta! <a href="minha-conta.html" style="color: #fff; text-decoration: underline;">Ver minha conta</a></p>
+        </div>
+    </div>
+
+    <div class="welcome-banner" id="loginBanner" style="background: #f0f0f0; padding: 15px; text-align: center; border-bottom: 1px solid #ddd;">
+        <div class="container" style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <p style="margin: 0;">Olá! Entre ou cadastre-se para uma experiência completa!</p>
+            <a href="conta.html?mode=login" class="btn" style="background: var(--primary); color: #fff; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: 600;">Entrar</a>
+            <a href="conta.html?mode=register" class="btn" style="background: #fff; color: var(--primary); padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: 600; border: 2px solid var(--primary);">Criar Conta</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-bg"></div>
+            <div class="container hero-content">
+                <p class="hero-subtitle">Presentear com carinho</p>
+                <h1 class="hero-title">
+                    <span class="hero-title-line">Cada detalhe,</span>
+                    <span class="hero-title-line">uma emoção</span>
+                </h1>
+                <p class="hero-text">Cestas personalizadas, buquês exclusivos e experiências únicas para momentos inesquecíveis</p>
+                <a href="#produtos" class="btn btn-primary">
+                    <span>Ver Produtos</span>
+                    <i class="ph ph-arrow-right"></i>
+                </a>
+            </div>
+            <div class="hero-decoration">
+                <svg viewBox="0 0 200 200" class="decoration-flower">
+                    <path fill="currentColor" d="M100,20 C120,20 140,40 140,60 C160,60 180,80 180,100 C180,120 160,140 140,140 C140,160 120,180 100,180 C80,180 60,160 60,140 C40,140 20,120 20,100 C20,80 40,60 60,60 C60,40 80,20 100,20 Z"/>
+                </svg>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="ph ph-gift"></i>
+                        <h3>Embalagem Premium</h3>
+                        <p>Presente cuidadosamente embalado</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="ph ph-truck"></i>
+                        <h3>Entrega Especial</h3>
+                        <p>Entrega agendada com carinho</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="ph ph-heart"></i>
+                        <h3>Feito com Amor</h3>
+                        <p>Cada peça é única e especial</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="ph ph-credit-card"></i>
+                        <h3>Pagamento Seguro</h3>
+                        <p>Parcele em até 6x sem juros</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categorias" id="categorias">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Explore</span>
+                    <h2 class="section-title">Nossas Categorias</h2>
+                    <p class="section-subtitle">Descubra o presente perfeito para cada momento</p>
+                </div>
+                
+                <div class="categorias-grid">
+                    <a href="#" class="categoria-card">
+                        <div class="categoria-image">
+                            <img src="https://i.ibb.co/b5hc6ZSD/Bandeja-de-caf-5-estrelas.png" alt="Cestas de Café da Manhã">
+                        </div>
+                        <div class="categoria-overlay"></div>
+                        <div class="categoria-content">
+                            <h3>Cestas de Café</h3>
+                            <span class="categoria-link">
+                                Ver produtos <i class="ph ph-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="categoria-card">
+                        <div class="categoria-image">
+                            <img src="https://i.ibb.co/7dTwxJ7t/Ramalhete-com-12-rosas.png" alt="Buquês de Flores">
+                        </div>
+                        <div class="categoria-overlay"></div>
+                        <div class="categoria-content">
+                            <h3>Buquês de Flores</h3>
+                            <span class="categoria-link">
+                                Ver produtos <i class="ph ph-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="categoria-card">
+                        <div class="categoria-image">
+                            <img src="https://i.ibb.co/zVLy6tqm/Box-love-you.png" alt="Presentes Românticos">
+                        </div>
+                        <div class="categoria-overlay"></div>
+                        <div class="categoria-content">
+                            <h3>Presentes Românticos</h3>
+                            <span class="categoria-link">
+                                Ver produtos <i class="ph ph-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="produtos" id="produtos">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Destaques</span>
+                    <h2 class="section-title">Produtos Mais Vendidos</h2>
+                    <p class="section-subtitle">Os favoritos dos nossos clientes</p>
+                </div>
+
+                <div class="produtos-grid">
+                    <article class="produto-card" data-id="1" onclick="abrirProdutoModal(1)">
+                        <div class="produto-badge">Mais vendido</div>
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/b5hc6ZSD/Bandeja-de-caf-5-estrelas.png" alt="Cesta Café 5 Estrelas">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Cestas</span>
+                            <h3 class="produto-title">Cesta Café 5 Estrelas</h3>
+                            <p class="produto-desc">Cesta completa com café gourmet, biscoitos e chocolates premium</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 370,00</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(1, 'Cesta Café 5 Estrelas', 370.00)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="produto-card" data-id="5" onclick="abrirProdutoModal(5)">
+                        <div class="produto-badge">Especial</div>
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/zVLy6tqm/Box-love-you.png" alt="Box Love You">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Romântico</span>
+                            <h3 class="produto-title">Box Love You</h3>
+                            <p class="produto-desc">Box romântico com 20 rosas vermelhas e chocolates</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 299,00</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(5, 'Box Love You', 299.00)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="produto-card" data-id="14" onclick="abrirProdutoModal(14)">
+                        <div class="produto-badge">Mais vendido</div>
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/7dTwxJ7t/Ramalhete-com-12-rosas.png" alt="Ramalhete com 12 Rosas">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Flores</span>
+                            <h3 class="produto-title">Ramalhete com 12 Rosas</h3>
+                            <p class="produto-desc">Doze rosas vermelhas clássicas. Declaração de amor</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 299,90</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(14, 'Ramalhete com 12 Rosas', 299.90)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="produto-card" data-id="2" onclick="abrirProdutoModal(2)">
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/HfGWJpn7/Bandeja-de-cafe-com-girassol-e-mimos.png" alt="Cesta Café com Girassol">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Cestas</span>
+                            <h3 class="produto-title">Cesta Café com Girassol</h3>
+                            <p class="produto-desc">Cesta com café especial, biscoitos e girassóis</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 290,00</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(2, 'Cesta Café com Girassol', 290.00)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="produto-card" data-id="8" onclick="abrirProdutoModal(8)">
+                        <div class="produto-badge">Premium</div>
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/rK8gKqh3/Orqu-dea-branca.png" alt="Orquídea Branca">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Flores</span>
+                            <h3 class="produto-title">Orquídea Branca</h3>
+                            <p class="produto-desc">Orquídea elegante em vaso. Simboliza pureza e elegância</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 89,90</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(8, 'Orquídea Branca', 89.90)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="produto-card" data-id="7" onclick="abrirProdutoModal(7)">
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/v6NSfcHD/Mini-box-com-4-rosas.png" alt="Mini Box com 4 Rosas">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Romântico</span>
+                            <h3 class="produto-title">Mini Box com 4 Rosas</h3>
+                            <p class="produto-desc">Box charmoso com 4 Rosas. Ideal para surpresas</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 189,90</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(7, 'Mini Box com 4 Rosas', 189.90)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="produto-card" data-id="17" onclick="abrirProdutoModal(17)">
+                        <div class="produto-image">
+                            <img src="https://i.ibb.co/FbbLmSxL/Ramalhete-com-4-girass-is.png" alt="Ramalhete com 4 Girassóis">
+                        </div>
+                        <div class="produto-content">
+                            <span class="produto-categoria">Flores</span>
+                            <h3 class="produto-title">Ramalhete com 4 Girassóis</h3>
+                            <p class="produto-desc">Quatro girassóis vibrantes. Alegria e energia garantidas</p>
+                            <div class="produto-footer">
+                                <span class="produto-preco">R$ 199,00</span>
+                                <button class="btn btn-cart" onclick="event.stopPropagation(); addToCart(17, 'Ramalhete com 4 Girassóis', 199.00)">
+                                    <i class="ph ph-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="produtos-cta">
+                    <a href="produtos.html" class="btn btn-secondary">Ver Todos os Produtos</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="sobre" id="sobre">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div class="sobre-image">
+                        <img src="https://i.ibb.co/4nxq9tNk/Logo-floral-elegante-com-toques-dourados.png" alt="Flor & Afeto - Nossa história">
+                    </div>
+                    <div class="sobre-content">
+                        <span class="section-tag">Sobre nós</span>
+                        <h2 class="section-title">Uma história de amor pelo que fazemos</h2>
+                        <p class="sobre-text">
+                            A <strong>Flor & Afeto</strong> nasceu do sonho de transformar momentos comuns em memórias extraordinárias. 
+                            Cada cesta que montamos, cada buquê que arranjamos carrega um pedacinho do nosso carinho.
+                        </p>
+                        <p class="sobre-text">
+                            Acreditamos que presentear é uma das mais belas formas de expressar amor, gratidão e appreciation. 
+                            Por isso, selecionamos cuidadosamente cada item para criar experiências únicas.
+                        </p>
+                        <div class="sobre-benefits">
+                            <div class="benefit-item">
+                                <i class="ph ph-check-circle"></i>
+                                <span>Produtos selecionados com carinho</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="ph ph-check-circle"></i>
+                                <span>Entrega pontual garantida</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="ph ph-check-circle"></i>
+                                <span>Atendimento personalizado</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="ph ph-check-circle"></i>
+                                <span>Embalagem premium gratuita</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="depoimentos">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Depoimentos</span>
+                    <h2 class="section-title">O que nossos clientes dizem</h2>
+                </div>
+                
+                <div class="depoimentos-grid">
+                    <div class="depoimento-card">
+                        <div class="depoimento-stars">
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                        </div>
+                        <p class="depoimento-text">
+                            "Recebi a cesta de café no meu aniversário e chorei de emoção! Tudo estava perfeito, 
+                            dos produtos à embalagem. Super recomendo!"
+                        </p>
+                        <div class="depoimento-autor">
+                                <div>
+                                    <strong>Maria Clara</strong>
+                                    <span>São Paulo, SP</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="depoimento-card">
+                        <div class="depoimento-stars">
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                        </div>
+                        <p class="depoimento-text">
+                            "Já é a terceira vez que compro na Flor & Afeto. A qualidade é impecável e o atendimento 
+                            é muito atencioso. Meu marido amou o presente!"
+                        </p>
+                        <div class="depoimento-autor">
+                                <div>
+                                    <strong>Rafael Santos</strong>
+                                    <span>São Paulo, SP</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="depoimento-card">
+                        <div class="depoimento-stars">
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                            <i class="ph ph-star-fill"></i>
+                        </div>
+                        <p class="depoimento-text">
+                            "O buquê de rosas que ganhei no Dia dos Namorados estava lindo! Flores frescas e 
+                            muito bem embaladas. Com certeza vou comprar mais vezes."
+                        </p>
+                        <div class="depoimento-autor">
+                                <div>
+                                    <strong>Ana Beatriz</strong>
+                                    <span>Campinas, SP</span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contato" id="contato">
+            <div class="container">
+                <div class="contato-grid">
+                    <div class="contato-info">
+                        <span class="section-tag">Contato</span>
+                        <h2 class="section-title">Fale com a gente</h2>
+                        <p class="contato-text">
+                            Estamos aqui para ajudar a criar o presente perfeito para o seu momento especial.
+                        </p>
+                        
+                        <div class="contato-items">
+                            <div class="contato-item">
+                                <i class="ph ph-whatsapp-logo"></i>
+                                <div>
+                                    <strong>WhatsApp</strong>
+                                    <span>(31) 98765-4321</span>
+                                </div>
+                            </div>
+                            <div class="contato-item">
+                                <i class="ph ph-envelope"></i>
+                                <div>
+                                    <strong>E-mail</strong>
+                                    <span>contato@floreafeto.com.br</span>
+                                </div>
+                            </div>
+                            <div class="contato-item">
+                                <i class="ph ph-instagram-logo"></i>
+                                <div>
+                                    <strong>Instagram</strong>
+                                    <span>@floreafeto</span>
+                                </div>
+                            </div>
+                            <div class="contato-item">
+                                <i class="ph ph-map-pin"></i>
+                                <div>
+                                    <strong>Endereço</strong>
+                                    <span>Rua das Flores, 123 - Centro<br>Belo Horizonte, MG</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="contato-form" id="contatoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" placeholder="Seu nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" placeholder="seu@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="assunto">Assunto</label>
+                            <input type="text" id="assunto" placeholder="Sobre o que você quer falar?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span>Enviar Mensagem</span>
+                            <i class="ph ph-paper-plane-tilt"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-script">Flor</span>
+                        <span class="logo-amp">&</span>
+                        <span class="logo-script">Afeto</span>
+                    </a>
+                    <p>Transformando momentos comuns em memórias extraordinárias desde 2019.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#categorias">Categorias</a></li>
+                        <li><a href="#produtos">Produtos</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Cestas de Café</a></li>
+                        <li><a href="#">Buquês de Flores</a></li>
+                        <li><a href="#">Presentes Românticos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Atendimento</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Política de Entrega</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Flor & Afeto. Todos os direitos reservados.</p>
+                <div class="footer-payments">
+                    <i class="ph ph-credit-card"></i>
+                    <span>Cartão de Crédito</span>
+                    <i class="ph ph-barcode"></i>
+                    <span>PIX</span>
+                    <i class="ph ph-bank"></i>
+                    <span>Boleto</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="ph ph-check-circle"></i>
+            <div>
+                <strong>Adicionado ao carrinho!</strong>
+                <span id="toastProduct">Produto</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="produto-modal" id="produtoModal">
+        <div class="produto-modal-overlay" onclick="fecharProdutoModal()"></div>
+        <div class="produto-modal-content">
+            <button class="produto-modal-close" onclick="fecharProdutoModal()">
+                <i class="ph ph-x"></i>
+            </button>
+            <img id="modalImagem" src="" alt="">
+            <div class="produto-modal-info">
+                <span class="produto-modal-categoria" id="modalCategoria"></span>
+                <h2 class="produto-modal-title" id="modalNome"></h2>
+                <p class="produto-modal-desc" id="modalDescricao"></p>
+                <div class="produto-modal-inclui">
+                    <h4><i class="ph ph-gift"></i> O que está incluído:</h4>
+                    <ul id="modalItens"></ul>
+                </div>
+                <div class="produto-modal-politica">
+                    <div class="politica-item">
+                        <h4><i class="ph ph-heart-message"></i> Dedicatória/Mensagem</h4>
+                        <p>É possível incluir uma mensagem junto ao seu presente! Prossiga com a compra e no campo dados de entrega basta digitar a sua mensagem. Não esqueça de assinar o cartão!<br><br>Caso queira enviar Anonimamente Selecione "Não Quero Mensagem" ou Digite sua mensagem e não assine o cartão. Este campo se encontra na última etapa de seu pedido.</p>
+                    </div>
+                    <div class="politica-item">
+                        <h4><i class="ph ph-arrow-counter-clockwise"></i> Política de Troca</h4>
+                        <p>Por se tratar de produtos perecíveis e sazonais, os mesmos podem variar de acordo com a época do ano, estação vigente ou climas inesperados. Porém prezamos ao máximo para enviar nossos arranjos com qualidade excepcional, flores frescas e embaladas com todo carinho e segurança. Poderá em alguns casos haver substituições para que o pedido seja entregue dentro do nosso padrão e prazo requisitado.</p>
+                    </div>
+                </div>
+                <div class="produto-modal-preco">
+                    <span class="preco-antigo" id="modalPrecoAntigo"></span>
+                    <span class="preco-atual" id="modalPreco"></span>
+                </div>
+                <button class="btn btn-primary btn-add-cart" id="modalAddCart">
+                    <i class="ph ph-shopping-bag"></i>
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="produtos-data.js"></script>
+    <script src="produtos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check user login and show welcome message
+        var userData = localStorage.getItem('florAfetoUser');
+        var btnEntrar = document.getElementById('btnEntrarHeader');
+        
+        if (userData) {
+            var user = JSON.parse(userData);
+            document.getElementById('welcomeBanner').style.display = 'block';
+            document.getElementById('welcomeName').textContent = user.nome || user.email;
+            document.getElementById('loginBanner').style.display = 'none';
+            if (btnEntrar) {
+                btnEntrar.textContent = 'Minha Conta';
+                btnEntrar.href = 'minha-conta.html';
+            }
+        } else {
+            document.getElementById('welcomeBanner').style.display = 'none';
+            document.getElementById('loginBanner').style.display = 'block';
+            if (btnEntrar) {
+                btnEntrar.textContent = 'Entrar / Criar Conta';
+                btnEntrar.href = 'conta.html';
+            }
+        }
+    </script>
+</body>
+</html>
