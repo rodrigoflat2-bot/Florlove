@@ -576,4 +576,86 @@
     .relacionados-grid {
         grid-template-columns: 1fr;
     }
+    
+    .carrinho-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .carrinho-header {
+        padding: 80px 0 30px;
+    }
+    
+    .carrinho-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .carrinho-itens {
+        padding: 15px;
+    }
+    
+    .carrinho-item {
+        flex-direction: column;
+        gap: 12px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .carrinho-item-img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .carrinho-item-info {
+        flex: 1;
+    }
+    
+    .carrinho-item-info h3 {
+        font-size: 1rem;
+    }
+    
+    .carrinho-item-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .quantidade-controls {
+        gap: 8px;
+    }
+    
+    .carrinho-resumo {
+        padding: 20px 15px;
+    }
+    
+    .resumo-total {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .carrinho-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .carrinho-itens,
+    .carrinho-resumo {
+        padding: 12px;
+        border-radius: 12px;
+    }
+    
+    .btn-finalizar {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .carrinho-header {
+        padding: 70px 0 20px;
+    }
+    
+    .carrinho-item-img {
+        width: 60px;
+        height: 60px;
+    }
 }

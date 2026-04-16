@@ -243,10 +243,12 @@ function toggleSenha(inputId, btn) {
     
     if (input.type === 'password') {
         input.type = 'text';
-        icon.className = 'ph ph-eye-slash';
+        icon.classList.remove('ph-eye');
+        icon.classList.add('ph-eye-slash');
     } else {
         input.type = 'password';
-        icon.className = 'ph ph-eye';
+        icon.classList.remove('ph-eye-slash');
+        icon.classList.add('ph-eye');
     }
 }
 

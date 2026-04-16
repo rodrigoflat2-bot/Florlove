@@ -25,9 +25,13 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 }
 
 body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Nunito', sans-serif;
     background-color: var(--background);
     color: var(--text);
@@ -1441,5 +1445,140 @@ a.action-btn {
     
     .produto-modal-content > img {
         height: 220px;
+    }
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 0 12px;
+    }
+    
+    .header-content {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-text {
+        font-size: 0.95rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .produto-card {
+        padding: 12px;
+    }
+    
+    .produto-title {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .welcome-banner .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .welcome-banner .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 375px) {
+    html {
+        font-size: 13px;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero {
+        padding: 60px 0 40px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content {
+        padding: 0 5px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .feature-item {
+        padding: 15px 10px;
+    }
+    
+    .feature-item i {
+        font-size: 1.8rem;
+    }
+    
+    .feature-item h3 {
+        font-size: 0.85rem;
+    }
+    
+    .feature-item p {
+        font-size: 0.75rem;
+    }
+    
+    .categorias-grid {
+        gap: 10px;
+    }
+    
+    .categoria-content h3 {
+        font-size: 1rem;
+    }
+    
+    .produtos-grid {
+        gap: 12px;
+    }
+    
+    .produto-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-cart {
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    html {
+        font-size: 12px;
+    }
+    
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
     }
 }

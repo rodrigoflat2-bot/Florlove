@@ -277,3 +277,56 @@
         font-size: 1.8rem;
     }
 }
+
+@media (max-width: 576px) {
+    .conta-container {
+        padding: 20px 15px;
+    }
+    
+    .conta-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .conta-header p {
+        font-size: 0.9rem;
+    }
+    
+    .tab-btn {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .conta-container {
+        padding: 15px 12px;
+    }
+    
+    .conta-header .logo {
+        font-size: 1.5rem;
+    }
+    
+    .conta-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .form-group input {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-block {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .conta-container {
+        padding: 12px 10px;
+    }
+    
+    .tab-content {
+        padding: 15px 10px;
+    }
+}

@@ -1275,3 +1275,82 @@
         margin: 0 -16px;
     }
 }
+
+@media (max-width: 375px) {
+    .checkout-form-section {
+        padding: 20px 12px;
+    }
+    
+    .checkout-resumo {
+        padding: 15px 12px;
+    }
+    
+    .form-section {
+        padding: 15px 12px;
+    }
+    
+    .section-header-form h2 {
+        font-size: 1.1rem;
+    }
+    
+    .form-grid-2,
+    .form-grid-3 {
+        grid-template-columns: 1fr;
+    }
+    
+    .pagamento-opcoes {
+        gap: 10px;
+    }
+    
+    .pagamento-card {
+        padding: 12px 8px;
+        min-width: 100px;
+    }
+    
+    .pagamento-card span {
+        font-size: 0.85rem;
+    }
+    
+    .pagamento-card small {
+        font-size: 0.7rem;
+    }
+    
+    .resumo-header h3 {
+        font-size: 1rem;
+    }
+    
+    .resumo-row {
+        font-size: 0.85rem;
+    }
+    
+    .total-valor span {
+        font-size: 1.2rem;
+    }
+    
+    .btn-finalizar {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .checkout-form-section,
+    .checkout-resumo,
+    .form-section {
+        padding: 12px 10px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .pagamento-opcoes {
+        flex-direction: column;
+    }
+    
+    .pagamento-card {
+        width: 100%;
+    }
+}
