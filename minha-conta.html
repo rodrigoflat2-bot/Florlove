@@ -335,6 +335,16 @@
                     subtotalFreteHtml += '</div>';
                 }
                 
+                var whatsappBtnHtml = '';
+                if (pedido.pagamento === 'pix') {
+                    var mensagemWhatsapp = 'Olá! Realizei o pagamento do pedido #' + pedido.numero + ' via PIX. Segue o comprovante.';
+                    whatsappBtnHtml = '<div class="pedido-whatsapp">' +
+                        '<a href="https://wa.me/5511924694745?text=' + encodeURIComponent(mensagemWhatsapp) + '" target="_blank" class="btn-whatsapp-comprovante">' +
+                        '<i class="ph ph-whatsapp-logo"></i> Enviar Comprovante PIX via WhatsApp' +
+                        '</a>' +
+                    '</div>';
+                }
+                
                 html += '<div class="pedido-card">' +
                     '<div class="pedido-header">' +
                         '<div class="pedido-info">' +
@@ -361,6 +371,7 @@
                                     '<span>Total Pago:</span>' +
                                     '<strong>' + pedido.total + '</strong>' +
                                 '</div>' +
+                                whatsappBtnHtml +
                             '</div>' +
                         '</div>' +
                         entregaHtml +
@@ -615,6 +626,33 @@
             background: #fff;
             border-radius: 8px;
             border-left: 4px solid #c62828;
+        }
+        .pedido-whatsapp {
+            margin-top: 15px;
+        }
+        .btn-whatsapp-comprovante {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 20px;
+            background: #25d366;
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp-comprovante:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        .btn-whatsapp-comprovante i {
+            font-size: 1.3rem;
         }
         @media (max-width: 768px) {
             .pedido-detalhes-grid {
