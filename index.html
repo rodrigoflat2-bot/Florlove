@@ -760,9 +760,11 @@
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
             animation: roletaSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin: 0 auto;
         }
         @keyframes roletaSlideIn {
             from { transform: scale(0.7) translateY(30px); opacity: 0; }
@@ -823,6 +825,12 @@
             height: 300px;
             margin: 0 auto;
         }
+        .roleta-modal-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
         .roleta-modal-outer {
             width: 100%;
             height: 100%;
@@ -837,6 +845,9 @@
             border-radius: 50%;
             overflow: hidden;
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            will-change: transform;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         .roleta-modal-pointer {
             position: absolute;
@@ -1020,11 +1031,13 @@
         }
         
         @media (max-width: 576px) {
-            .roleta-modal-container { width: 260px; height: 260px; }
+            .roleta-modal-overlay { padding: 15px 10px; align-items: flex-start; padding-top: 10vh; }
+            .roleta-modal-content { max-width: 100%; border-radius: 24px; }
+            .roleta-modal-header { padding: 20px 16px 10px; }
             .roleta-modal-header h2 { font-size: 1.3rem; }
-            .roleta-modal-content { max-width: 95vw; margin: 0 auto; }
-            .roleta-modal-body { padding: 0 15px 20px; }
-            .roleta-modal-premio-content { padding: 24px 16px; max-width: 95vw; max-height: 90vh; }
+            .roleta-modal-body { padding: 0 16px 24px; }
+            .roleta-modal-container { width: 260px; height: 260px; }
+            .roleta-modal-premio-content { padding: 24px 16px; max-width: 100%; max-height: 90vh; }
             .roleta-modal-premio-content h2 { font-size: 1.4rem; }
             .premio-icon { font-size: 2rem; }
             .premio-congrats { font-size: 0.85rem; margin-bottom: 12px; }
@@ -1034,19 +1047,31 @@
             .premio-valor-gratis { font-size: 0.9rem; padding: 6px 16px; }
             .btn-ir-carrinho { padding: 12px 20px !important; font-size: 0.9rem !important; }
             .btn-fechar-modal { padding: 8px 20px !important; font-size: 0.8rem !important; }
+            .roleta-btn-girar { padding: 14px 35px; font-size: 1rem; }
             .btn-girar-header {
                 width: 100% !important;
                 text-align: center;
                 justify-content: center;
             }
         }
-        @media (max-width: 375px) {
+        @media (max-width: 420px) {
             .roleta-modal-container { width: 240px; height: 240px; }
             .roleta-modal-premio-content { padding: 20px 12px; }
             .roleta-modal-premio-content h2 { font-size: 1.3rem; }
             .premio-nome { font-size: 0.95rem; }
         }
+        @media (max-width: 360px) {
+            .roleta-modal-overlay { padding: 10px 6px; padding-top: 5vh; }
+            .roleta-modal-content { border-radius: 20px; }
+            .roleta-modal-container { width: 220px; height: 220px; }
+            .roleta-modal-header { padding: 16px 12px 8px; }
+            .roleta-modal-header h2 { font-size: 1.15rem; }
+            .roleta-modal-body { padding: 0 10px 18px; }
+            .roleta-btn-girar { padding: 12px 28px; font-size: 0.95rem; margin-top: 18px; }
+            .roleta-disclaimer { font-size: 0.75rem; margin-top: 10px; }
+        }
         @media (max-width: 320px) {
+            .roleta-modal-container { width: 200px; height: 200px; }
             .roleta-modal-premio-content { padding: 16px 10px; max-height: 95vh; }
             .premio-icon { font-size: 1.8rem; }
             .roleta-modal-premio-content h2 { font-size: 1.2rem; }

@@ -3,11 +3,31 @@ let valorFrete = 0;
 let estadoEntrega = null;
 
 document.addEventListener('DOMContentLoaded', function() {
+    limparCarrinhoInvalido();
     renderCarrinho();
     renderRelacionados();
     initCupom();
     initFormatCep();
+    console.log('[CARRINHO] Cart after load:', JSON.parse(localStorage.getItem('florAfetoCart')));
 });
+
+function limparCarrinhoInvalido() {
+    let cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
+    if (cart.length === 0) return;
+    
+    // Fix items without quantidade
+    let changed = false;
+    cart.forEach(function(item) {
+        if (!item.quantidade || item.quantidade < 1) {
+            item.quantidade = 1;
+            changed = true;
+        }
+    });
+    
+    if (changed) {
+        localStorage.setItem('florAfetoCart', JSON.stringify(cart));
+    }
+}
 
 function renderCarrinho() {
     const cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
@@ -17,18 +37,27 @@ function renderCarrinho() {
     const subtitle = document.getElementById('cartSubtitle');
     const countHeader = document.getElementById('cartCountHeader');
     
-    const totalItens = cart.reduce((sum, item) => sum + item.quantidade, 0);
+    const totalItens = cart.reduce((sum, item) => sum + (item.quantidade || 1), 0);
     subtitle.textContent = `${totalItens} ${totalItens === 1 ? 'item' : 'itens'} no seu carrinho`;
-    countHeader.textContent = totalItens;
+    if (countHeader) {
+        countHeader.textContent = totalItens;
+        if (totalItens === 0) {
+            countHeader.style.display = 'none';
+            countHeader.style.opacity = '0';
+        } else {
+            countHeader.style.display = 'flex';
+            countHeader.style.opacity = '1';
+        }
+    }
     
     if (cart.length === 0) {
-        vazio.classList.add('show');
-        layout.style.display = 'none';
+        if (vazio) vazio.classList.add('show');
+        if (layout) layout.style.display = 'none';
         return;
     }
     
-    vazio.classList.remove('show');
-    layout.style.display = 'grid';
+    if (vazio) vazio.classList.remove('show');
+    if (layout) layout.style.display = 'grid';
     
     container.innerHTML = cart.map(item => {
         const produto = getProdutoById(item.id);
@@ -114,8 +143,7 @@ function removerItem(id) {
     cart = cart.filter(i => i.id !== id);
     localStorage.setItem('florAfetoCart', JSON.stringify(cart));
     renderCarrinho();
-        showToast('Item removido!', item.nome);
-    }
+    showToast('Item removido!', item.nome);
 }
 
 function atualizarResumo() {

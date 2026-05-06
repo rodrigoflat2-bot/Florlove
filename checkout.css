@@ -795,6 +795,44 @@
     text-decoration: line-through;
 }
 
+.frete-pendente {
+    color: #999;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.frete-pendente i {
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.frete-carregando {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.frete-carregando i {
+    font-size: 1rem;
+}
+
+.frete-info-row {
+    padding: 4px 0 0;
+    margin-top: -8px;
+}
+
+.frete-info-text {
+    font-size: 0.75rem;
+    color: #999;
+    font-weight: 500;
+}
+
 .resumo-total {
     display: flex;
     justify-content: space-between;

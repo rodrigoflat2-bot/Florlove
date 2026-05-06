@@ -197,14 +197,19 @@ function initCart() {
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
     const countElements = document.querySelectorAll('.cart-count');
-    const totalItens = cart.reduce((sum, item) => sum + item.quantidade, 0);
+    const totalItens = cart.reduce((sum, item) => sum + (item.quantidade || 1), 0);
     
     countElements.forEach(el => {
-        el.textContent = totalItens;
         if (totalItens === 0) {
+            el.textContent = '0';
             el.style.display = 'none';
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
         } else {
+            el.textContent = totalItens;
             el.style.display = 'flex';
+            el.style.opacity = '1';
+            el.style.pointerEvents = 'auto';
         }
     });
 }

@@ -363,10 +363,13 @@
                         </div>
                         <div class="resumo-row">
                             <span><i class="ph ph-truck"></i> Frete</span>
-                            <span class="frete-gratis" id="checkoutFrete">
-                                <span class="frete-antigo">R$ 29,90</span>
-                                GRÁTIS
+                            <span id="checkoutFrete">
+                                <span class="frete-pendente"><i class="ph ph-info"></i> Informe seu CEP</span>
                             </span>
+                        </div>
+                        <div class="resumo-row frete-info-row" id="freteInfoRow" style="display:none;">
+                            <span></span>
+                            <span id="freteInfoDetalhe"></span>
                         </div>
                         <div class="resumo-row desconto" id="descontoRow">
                             <span><i class="ph ph-percent"></i> Desconto</span>
@@ -498,17 +501,57 @@
             var loading = document.getElementById('cepLoading');
             if (loading) loading.style.display = 'block';
             
-            fetch('https://viacep.com.br/ws/' + cep + '/json/')
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (loading) loading.style.display = 'none';
-                    if (!data.erro) {
-                        document.getElementById('endereco').value = data.logradouro || '';
-                        document.getElementById('bairro').value = data.bairro || '';
-                        document.getElementById('cidade').value = data.localidade || '';
-                        document.getElementById('estado').value = data.uf || '';
-                    }
-                });
+            // Mostrar carregando no resumo
+            var freteEl = document.getElementById('checkoutFrete');
+            if (freteEl) freteEl.innerHTML = '<span class="frete-carregando"><i class="ph ph-spinner" style="animation: spin 1s linear infinite;"></i> Calculando...</span>';
+            var infoRow = document.getElementById('freteInfoRow');
+            if (infoRow) infoRow.style.display = 'none';
+            
+            // Simular 2 segundos de carregamento
+            setTimeout(function() {
+                fetch('https://viacep.com.br/ws/' + cep + '/json/')
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        if (loading) loading.style.display = 'none';
+                        if (!data.erro) {
+                            document.getElementById('endereco').value = data.logradouro || '';
+                            document.getElementById('bairro').value = data.bairro || '';
+                            document.getElementById('cidade').value = data.localidade || '';
+                            document.getElementById('estado').value = data.uf || '';
+                            
+                            // Calcular frete
+                            var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
+                            var subtotal = cart.reduce(function(sum, item) { return sum + (item.preco * item.quantidade); }, 0);
+                            var freteGratis = subtotal >= 199;
+                            var valorFrete = freteGratis ? 0 : 29;
+                            
+                            // Formatar CEP
+                            var cepFormatado = cep.slice(0, 5) + '-' + cep.slice(5);
+                            
+                            // Atualizar frete no resumo
+                            if (freteEl) {
+                                if (freteGratis) {
+                                    freteEl.innerHTML = '<span class="frete-antigo">R$ 29,00</span> GRÁTIS';
+                                } else {
+                                    freteEl.innerHTML = 'R$ ' + valorFrete.toFixed(2).replace('.', ',');
+                                }
+                            }
+                            
+                            // Mostrar info do frete abaixo
+                            var infoEl = document.getElementById('freteInfoDetalhe');
+                            if (infoEl) {
+                                infoEl.innerHTML = '<span class="frete-info-text">' + cepFormatado + ' · 2 a 6 dias úteis</span>';
+                            }
+                            if (infoRow) infoRow.style.display = 'flex';
+                            
+                            // Atualizar total
+                            var pixDesconto = pagamentoPix ? subtotal * 0.10 : 0;
+                            var total = subtotal - pixDesconto + valorFrete;
+                            var checkoutTotalEl = document.getElementById('checkoutTotal');
+                            if (checkoutTotalEl) checkoutTotalEl.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+                        }
+                    });
+            }, 2000);
         }
         window.buscarCep = doBuscarCep;
         window.buscarCEP = doBuscarCep;
@@ -573,9 +616,18 @@
         function calcularDescontoPIX() {
             var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
             var subtotal = cart.reduce(function(sum, item) { return sum + (item.preco * item.quantidade); }, 0);
-            var freight = subtotal >= 199 ? 0 : 29;
+            var freteGratis = subtotal >= 199;
+            var freteAtual = freteGratis ? 0 : 29;
+            var freteEl = document.getElementById('checkoutFrete');
+            
+            // Se o frete já foi calculado (CEP informado), manter o valor do frete, caso contrário 0
+            var textoFrete = freteEl ? freteEl.textContent : '';
+            if (textoFrete.includes('Informe') || textoFrete.includes('Calculando')) {
+                freteAtual = 0;
+            }
+            
             var pixDesconto = subtotal * 0.10;
-            var total = subtotal - pixDesconto + freight;
+            var total = subtotal - pixDesconto + freteAtual;
             
             var pixDescontoRow = document.getElementById('pixDescontoRow');
             var pixDescontoEl = document.getElementById('pixDesconto');
@@ -628,11 +680,11 @@
             
             // Atualizar totals
             var subtotal = cart.reduce(function(sum, item) { return sum + (item.preco * item.quantidade); }, 0);
-            var freight = subtotal >= 199 ? 0 : 29;
-            var total = subtotal + freight;
             document.getElementById('checkoutSubtotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.', ',');
-            document.getElementById('checkoutFrete').textContent = freight === 0 ? 'Grátis' : 'R$ ' + freight.toFixed(2).replace('.', ',');
-            document.getElementById('checkoutTotal').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+            document.getElementById('checkoutFrete').innerHTML = '<span class="frete-pendente"><i class="ph ph-info"></i> Informe seu CEP</span>';
+            var infoRow = document.getElementById('freteInfoRow');
+            if (infoRow) infoRow.style.display = 'none';
+            document.getElementById('checkoutTotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.', ',');
         }
         loadResumoCheckout();
         
