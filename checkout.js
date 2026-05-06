@@ -2,8 +2,8 @@ let cupomDesconto = null;
 let pagamentoPix = false;
 let currentUser = null;
 let valorFrete = 0;
-const FRETE_MINIMO_GRATIS = 180;
-const VALOR_FRETE = 24;
+const FRETE_MINIMO_GRATIS = 199;
+const VALOR_FRETE = 29;
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
@@ -45,7 +45,7 @@ function buscarCEP() {
                 document.getElementById('endereco').value = data.logradouro || '';
                 document.getElementById('bairro').value = data.bairro || '';
                 document.getElementById('cidade').value = data.localidade || '';
-                document.getElementById('estado').value = data.uf || 'SP';
+                document.getElementById('estado').value = data.uf || '';
                 console.log('Endereço preenchido!');
             } else {
                 console.log('CEP não encontrado');
@@ -593,13 +593,6 @@ function validarFormulario() {
             field.style.borderColor = '#e8e8e8';
         }
     });
-    
-    const estado = document.getElementById('estado').value;
-    if (estado !== 'SP') {
-        alert('No momento, entregamos apenas no estado de São Paulo.');
-        document.getElementById('estado').style.borderColor = '#e74c3c';
-        valido = false;
-    }
     
     const email = document.getElementById('email').value;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

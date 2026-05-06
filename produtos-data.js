@@ -247,7 +247,7 @@ itens: ["Orquídea roxa", "Vaso decorativo", "Substrato especial", "Cartão de i
         precoAntigo: null,
         categoria: "flores",
         categoriaNome: "Flores",
-        imagem: "https://i.ibb.co/B2M2YtVw/Ramalhete-com-girass-is-e-astromelias.png",
+        imagem: "https://i.ibb.co/KpcxDx3W/Ramalhete-com-girass-is-e-astromelias.png",
         badge: null,
         itens: ["Girassolis", "Astromélias", "Folhagem tropical", "Papel kraft"]
     },

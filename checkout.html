@@ -58,10 +58,10 @@
         <div class="container">
             <div class="checkout-notice">
                 <div class="notice-content">
-                    <i class="ph ph-map-trifold"></i>
+                    <i class="ph ph-truck"></i>
                     <div>
-                        <strong>Atendemos apenas clientes de São Paulo</strong>
-                        <p>Frete grátis para todas as cidades de SP!</p>
+                        <strong>Entrega para todo o Brasil via SEDEX</strong>
+                        <p>Prazo de 2 a 6 dias úteis | Frete grátis acima de R$199</p>
                     </div>
                 </div>
             </div>
@@ -174,21 +174,43 @@
                                     </label>
                                     <select id="estado" name="estado" required>
                                         <option value="">Selecione</option>
-                                        <option value="SP" selected>São Paulo</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="entrega-info">
-                                <div class="info-card info-sp">
-                                    <i class="ph ph-check-circle"></i>
+                                <div class="info-card info-entrega">
+                                    <i class="ph ph-truck"></i>
                                     <div>
-                                        <strong>Você está em São Paulo!</strong>
-                                        <span>Frete grátis incluso no seu pedido</span>
-                                    </div>
-                                    <div class="frete-badge">
-                                        <i class="ph ph-gift"></i>
-                                        GRÁTIS
+                                        <strong>Entrega via SEDEX</strong>
+                                        <span>Prazo de 2 a 6 dias úteis após confirmação do pagamento</span>
                                     </div>
                                 </div>
                             </div>
@@ -367,8 +389,8 @@
                     <div class="frete-gratis-banner">
                         <i class="ph ph-truck"></i>
                         <div>
-                            <strong>Frete Grátis!</strong>
-                            <span>Para todo estado de SP</span>
+                            <strong>Frete Grátis acima de R$199!</strong>
+                            <span>Entrega via SEDEX para todo o Brasil</span>
                         </div>
                     </div>
                     
@@ -455,10 +477,10 @@
                     <p>Presentear com carinho desde 2019</p>
                 </div>
                 <div class="footer-entrega">
-                    <i class="ph ph-map-pin"></i>
+                    <i class="ph ph-truck"></i>
                     <div>
-                        <strong>Apenas clientes de São Paulo</strong>
-                        <span>Frete grátis para todo o estado</span>
+                        <strong>Entrega para todo o Brasil</strong>
+                        <span>SEDEX | 2 a 6 dias úteis</span>
                     </div>
                 </div>
             </div>
@@ -484,12 +506,25 @@
                         document.getElementById('endereco').value = data.logradouro || '';
                         document.getElementById('bairro').value = data.bairro || '';
                         document.getElementById('cidade').value = data.localidade || '';
-                        document.getElementById('estado').value = data.uf || 'SP';
+                        document.getElementById('estado').value = data.uf || '';
                     }
                 });
         }
         window.buscarCep = doBuscarCep;
         window.buscarCEP = doBuscarCep;
+        
+        // Handle user from URL parameter (after registration with prize)
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var userParam = params.get('user');
+            if (userParam) {
+                try {
+                    var user = JSON.parse(decodeURIComponent(userParam));
+                    localStorage.setItem('florAfetoUser', JSON.stringify(user));
+                    window.currentUser = user;
+                } catch(e) {}
+            }
+        })();
         
         // Auto-buscar ao digitar 8 dígitos
         var cepInput = document.getElementById('cep');
@@ -538,7 +573,7 @@
         function calcularDescontoPIX() {
             var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
             var subtotal = cart.reduce(function(sum, item) { return sum + (item.preco * item.quantidade); }, 0);
-            var freight = subtotal >= 180 ? 0 : 24;
+            var freight = subtotal >= 199 ? 0 : 29;
             var pixDesconto = subtotal * 0.10;
             var total = subtotal - pixDesconto + freight;
             
@@ -586,14 +621,14 @@
                 var produto = getProdutoById(item.id);
                 var imagem = produto ? produto.imagem : item.imagem || '';
                 var nome = item.nome;
-                var preco = (item.preco * item.quantidade).toFixed(2).replace('.', ',');
-                html += '<div class="resumo-item"><img src="' + imagem + '"><div>' + nome + '</div><span>R$ ' + preco + '</span></div>';
+                var precoDisplay = item.premio ? 'GRÁTIS' : 'R$ ' + (item.preco * item.quantidade).toFixed(2).replace('.', ',');
+                html += '<div class="resumo-item"><img src="' + imagem + '"><div>' + nome + '</div><span>' + precoDisplay + '</span></div>';
             });
             if (container) container.innerHTML = html;
             
             // Atualizar totals
             var subtotal = cart.reduce(function(sum, item) { return sum + (item.preco * item.quantidade); }, 0);
-            var freight = subtotal >= 180 ? 0 : 24;
+            var freight = subtotal >= 199 ? 0 : 29;
             var total = subtotal + freight;
             document.getElementById('checkoutSubtotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.', ',');
             document.getElementById('checkoutFrete').textContent = freight === 0 ? 'Grátis' : 'R$ ' + freight.toFixed(2).replace('.', ',');
@@ -755,7 +790,9 @@
                     console.log('Container PIX:', container, 'Content:', content);
                     if (container && content) {
                         container.style.display = 'block';
-                        content.innerHTML = '<p>CNPJ: 12.345.678/0001-90</p><p>Pedido: #' + pedidoNumero + '</p><p>Valor: ' + total + '</p>';
+                        content.className = 'instrucoes-content pix';
+                        var cnpj = '12.345.678/0001-90';
+                        content.innerHTML = '<div class="cnpj-box"><label>CNPJ / Chave PIX</label><div class="cnpj-numero" id="pixCnpj">' + cnpj + '</div></div><p>Pedido: #' + pedidoNumero + '</p><p>Valor: <strong>' + total + '</strong></p><button type="button" class="copy-btn" onclick="copiarPix()"><i class="ph ph-copy"></i> Copiar código PIX</button>';
                         console.log('Instruções PIX atualizadas');
                     }
                 }
@@ -765,6 +802,32 @@
                 modalSucesso.classList.add('show');
                 console.log('Modal mostrado!');
             });
+        }
+        
+        // Função para copiar código PIX
+        function copiarPix() {
+            var cnpj = document.getElementById('pixCnpj');
+            if (cnpj) {
+                navigator.clipboard.writeText(cnpj.textContent.trim()).then(function() {
+                    var btn = document.querySelector('.copy-btn');
+                    if (btn) {
+                        var originalHTML = btn.innerHTML;
+                        btn.innerHTML = '<i class="ph ph-check"></i> CNPJ Copiado! ✅';
+                        btn.style.background = '#00b894';
+                        setTimeout(function() {
+                            btn.innerHTML = originalHTML;
+                            btn.style.background = '';
+                        }, 2000);
+                    }
+                }).catch(function() {
+                    var range = document.createRange();
+                    range.selectNodeContents(cnpj);
+                    var sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    alert('Selecione o CNPJ e pressione Ctrl+C para copiar.');
+                });
+            }
         }
         
         // Função para ir para Meus Pedidos com dados do usuário

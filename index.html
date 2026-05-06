@@ -59,6 +59,43 @@
         </div>
     </div>
 
+    <div class="produto-destaque-banner" id="produtoDestaqueBanner" style="background: linear-gradient(135deg, #fdf8f5, #f8e8e0); padding: 40px 0; border-bottom: 3px solid #E84393;">
+        <div class="container">
+            <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; justify-content: center;">
+                <div style="flex: 0 0 auto; max-width: 300px;">
+                    <div style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+                        <img src="https://i.ibb.co/HfGWJpn7/Bandeja-de-cafe-com-girassol-e-mimos.png" alt="Cesta Café com Girassol e Mimos" style="width: 100%; height: auto; display: block;">
+                        <div style="position: absolute; top: 15px; left: 15px; background: #E84393; color: #fff; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
+                            🎁 ESPECIAL DIA DAS MÃES
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 280px; max-width: 600px;">
+                    <span style="display: inline-block; background: #E84393; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px;">
+                        PRESENTE PERFEITO
+                    </span>
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 15px; color: var(--secondary);">
+                        Cesta Café com <span style="color: #e17055;">Girassol</span> e Mimos
+                    </h2>
+                    <p style="color: #666; line-height: 1.8; margin-bottom: 20px;">
+                        Presenteie com carinho! Nossa cesta especial inclui frutas frescas, suco, chocolate líquido, biscoitos caseiros, mini bolo, croissant, pão de queijo, frios, iogurte grego, cappuccino, chá, pão de mel, caneca e um lindo arranjo de girassol. O presente perfeito para o Dia das Mães!
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                        <span style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--secondary);">R$ 290,00</span>
+                        <button class="btn" style="background: var(--primary); color: #fff; padding: 14px 30px; border-radius: 50px; font-weight: 700; border: none; cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px;" onclick="addToCart(2, 'Cesta Café com Girassol', 290.00)">
+                            <i class="ph ph-shopping-bag"></i>
+                            Comprar Agora
+                        </button>
+                    </div>
+                    <a href="#" id="btnAbrirRoleta" style="display: inline-flex; align-items: center; gap: 8px; color: #E84393; font-weight: 700; text-decoration: none;">
+                        <i class="ph ph-gift" style="font-size: 1.3rem;"></i>
+                        Gire a Roleta e ganhe esta cesta GRÁTIS! →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main>
         <section class="hero" id="home">
             <div class="hero-bg"></div>
@@ -68,7 +105,7 @@
                     <span class="hero-title-line">Cada detalhe,</span>
                     <span class="hero-title-line">uma emoção</span>
                 </h1>
-                <p class="hero-text">Cestas personalizadas, buquês exclusivos e experiências únicas para momentos inesquecíveis</p>
+                <p class="hero-text">🌸 Especial Dia das Mães: Gire a Roleta da Sorte e ganhe presentes incríveis!</p>
                 <a href="#produtos" class="btn btn-primary">
                     <span>Ver Produtos</span>
                     <i class="ph ph-arrow-right"></i>
@@ -442,10 +479,10 @@
                                 </div>
                             </div>
                             <div class="contato-item">
-                                <i class="ph ph-map-pin"></i>
+                                <i class="ph ph-globe"></i>
                                 <div>
-                                    <strong>Endereço</strong>
-                                    <span>Rua das Flores, 123 - Centro<br>Belo Horizonte, MG</span>
+                                    <strong>Loja 100% Online</strong>
+                                    <span>Entrega para todo o Brasil</span>
                                 </div>
                             </div>
                         </div>
@@ -614,6 +651,578 @@
                 btnEntrar.href = 'conta.html';
             }
         }
+    </script>
+
+    <!-- Roleta da Sorte Modal -->
+    <div class="roleta-modal-overlay" id="roletaModal" style="display: none;">
+        <div class="roleta-modal-content">
+            <div class="roleta-decorative-border"></div>
+            <div class="roleta-modal-close" onclick="fecharRoleta()">&times;</div>
+            <div class="roleta-modal-header">
+                <div class="roleta-header-flower">🌸</div>
+                <h2>Roleta da Sorte</h2>
+                <p>Especial <strong>Dia das Mães</strong></p>
+            </div>
+            <div class="roleta-modal-body">
+                <div class="roleta-modal-container">
+                    <div class="roleta-modal-pointer"></div>
+                    <div class="roleta-modal-outer">
+                        <div class="roleta-modal-inner" id="roletaPopup">
+                            <canvas id="roletaPopupCanvas" width="304" height="304"></canvas>
+                        </div>
+                    </div>
+                    <div class="roleta-modal-center">
+                        <span class="roleta-center-icon">🌷</span>
+                    </div>
+                </div>
+                <button class="roleta-btn-girar" id="btnGirarPopup" onclick="girarRoletaPopup()">
+                    <i class="ph ph-gift"></i>
+                    GIRAR E GANHAR
+                </button>
+                <p class="roleta-disclaimer">Gire a roleta e descubra seu presente especial</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de prêmio -->
+    <div class="roleta-modal-premio" id="modalPremioPopup">
+        <div class="roleta-modal-premio-content">
+            <div class="premio-celebration">
+                <div class="premio-sparks"></div>
+                <div class="premio-icon">🎉</div>
+                <div class="premio-sparks"></div>
+            </div>
+            <h2>Parabéns!</h2>
+            <p class="premio-congrats">Você ganhou um presente especial para o Dia das Mães!</p>
+            <div class="premio-card">
+                <div class="premio-card-header">
+                    <span class="premio-badge">Presente Grátis</span>
+                    <span class="premio-valor-antigo">R$ 290,00</span>
+                </div>
+                <div class="premio-nome" id="premioNomePopup">
+                    🌻 Cesta Café com Girassol e Mimos
+                </div>
+                <div class="premio-valor-gratis">
+                    <span>GRÁTIS</span>
+                </div>
+            </div>
+            <div class="modal-premio-actions">
+                <a href="#" class="btn-ir-carrinho" id="btnResgatarPremio" onclick="resgatarPremio()" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; border-radius: 50px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 20px rgba(212,165,116,0.4); transition: all 0.3s ease;">
+                    <i class="ph ph-shopping-cart"></i>
+                    Resgatar Meu Prêmio
+                </a>
+                <a href="#" class="btn-fechar-modal" onclick="fecharPremio()" style="display: inline-block; padding: 12px 30px; color: #999; text-decoration: none; font-weight: 600;">
+                    Continuar comprando
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de login obrigatório -->
+    <div class="roleta-modal-premio" id="modalLoginNecessario" style="z-index: 10003;">
+        <div class="roleta-modal-premio-content" style="max-width: 450px;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+            <h2>Faça Login para Resgatar</h2>
+            <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">Para garantir que seu prêmio seja entregue, você precisa estar logado. Faça login ou crie uma conta rapidinho!</p>
+            <div class="modal-premio-actions">
+                <a href="conta.html?mode=login" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 30px; background: linear-gradient(135deg, #E84393, #d63384); color: #fff; border-radius: 50px; font-weight: 700; text-decoration: none;">
+                    <i class="ph ph-sign-in"></i>
+                    Fazer Login
+                </a>
+                <a href="conta.html?mode=register" style="display: inline-block; padding: 12px 30px; color: var(--primary); font-weight: 600; text-decoration: none; border: 2px solid var(--primary); border-radius: 50px;">
+                    Criar Conta
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="confetti" id="confettiPopup"></div>
+
+    <style>
+        .roleta-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .roleta-modal-overlay.show {
+            display: flex;
+        }
+        .roleta-modal-content {
+            background: #fff;
+            border-radius: 30px;
+            max-width: 430px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: roletaSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        @keyframes roletaSlideIn {
+            from { transform: scale(0.7) translateY(30px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .roleta-decorative-border {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #D4A574, #E84393, #D4A574, #E84393, #D4A574);
+            border-radius: 30px 30px 0 0;
+        }
+        .roleta-modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #888;
+            z-index: 10;
+            width: 36px; height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .roleta-modal-close:hover { background: rgba(0,0,0,0.1); color: #333; }
+        .roleta-modal-header {
+            text-align: center;
+            padding: 25px 20px 15px;
+        }
+        .roleta-header-flower {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .roleta-modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        .roleta-modal-header h2 strong {
+            color: #E84393;
+        }
+        .roleta-modal-header p {
+            color: #888;
+            font-size: 0.95rem;
+        }
+        .roleta-modal-body {
+            padding: 0 20px 30px;
+            text-align: center;
+        }
+        .roleta-modal-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        .roleta-modal-outer {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4A574, #c49565);
+            padding: 6px;
+            box-shadow: 0 8px 30px rgba(212,165,116,0.4), inset 0 2px 10px rgba(255,255,255,0.2);
+        }
+        .roleta-modal-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+        .roleta-modal-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+        }
+        .roleta-modal-pointer::before {
+            content: '';
+            width: 0; height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid #E84393;
+            display: block;
+            filter: drop-shadow(0 3px 6px rgba(232,67,147,0.3));
+        }
+        .roleta-modal-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px; height: 55px;
+            background: linear-gradient(135deg, #fff, #f8f8f8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        .roleta-center-icon {
+            font-size: 1.5rem;
+        }
+        .roleta-btn-girar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, #E84393, #d63384);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 8px 30px rgba(232,67,147,0.35);
+            transition: all 0.3s ease;
+        }
+        .roleta-btn-girar:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(232,67,147,0.45); }
+        .roleta-btn-girar:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .roleta-disclaimer {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Modal de prêmio */
+        .roleta-modal-premio {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+            padding: 20px;
+        }
+        .roleta-modal-premio.show { display: flex; }
+        .roleta-modal-premio-content {
+            background: #fff;
+            border-radius: 24px;
+            padding: 30px 24px;
+            max-width: 420px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: center;
+            animation: roletaSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .premio-celebration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .premio-icon {
+            font-size: 2.5rem;
+            animation: premioBounce 0.6s ease;
+        }
+        @keyframes premioBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .roleta-modal-premio-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+        .premio-congrats {
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        .premio-card {
+            background: linear-gradient(135deg, #fdf8f5, #fff);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .premio-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .premio-badge {
+            background: #E84393;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .premio-valor-antigo {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.85rem;
+        }
+        .premio-nome {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .premio-valor-gratis {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,184,148,0.3);
+        }
+        .modal-premio-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn-ir-carrinho {
+            padding: 14px 24px !important;
+            font-size: 0.95rem !important;
+        }
+        .btn-fechar-modal {
+            padding: 10px 24px !important;
+            font-size: 0.85rem !important;
+        }
+        .btn-ir-carrinho:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,165,116,0.5); }
+        
+        .confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10003; }
+        .confetti-piece {
+            position: absolute;
+            width: 10px; height: 10px;
+            animation: confettiFall 3s ease-in forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        @media (max-width: 576px) {
+            .roleta-modal-container { width: 260px; height: 260px; }
+            .roleta-modal-header h2 { font-size: 1.3rem; }
+            .roleta-modal-content { max-width: 95vw; margin: 0 auto; }
+            .roleta-modal-body { padding: 0 15px 20px; }
+            .roleta-modal-premio-content { padding: 24px 16px; max-width: 95vw; max-height: 90vh; }
+            .roleta-modal-premio-content h2 { font-size: 1.4rem; }
+            .premio-icon { font-size: 2rem; }
+            .premio-congrats { font-size: 0.85rem; margin-bottom: 12px; }
+            .premio-nome { font-size: 1rem; }
+            .premio-card { padding: 12px; }
+            .premio-badge { font-size: 0.7rem; padding: 4px 10px; }
+            .premio-valor-gratis { font-size: 0.9rem; padding: 6px 16px; }
+            .btn-ir-carrinho { padding: 12px 20px !important; font-size: 0.9rem !important; }
+            .btn-fechar-modal { padding: 8px 20px !important; font-size: 0.8rem !important; }
+            .btn-girar-header {
+                width: 100% !important;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 375px) {
+            .roleta-modal-container { width: 240px; height: 240px; }
+            .roleta-modal-premio-content { padding: 20px 12px; }
+            .roleta-modal-premio-content h2 { font-size: 1.3rem; }
+            .premio-nome { font-size: 0.95rem; }
+        }
+        @media (max-width: 320px) {
+            .roleta-modal-premio-content { padding: 16px 10px; max-height: 95vh; }
+            .premio-icon { font-size: 1.8rem; }
+            .roleta-modal-premio-content h2 { font-size: 1.2rem; }
+            .premio-nome { font-size: 0.9rem; }
+            .premio-valor-gratis { font-size: 0.85rem; padding: 5px 14px; }
+        }
+    </style>
+
+    <script>
+        var opcoesPopup = [
+            { texto: '10% OFF', cor: '#E84393' },
+            { texto: '20% OFF', cor: '#D4A574' },
+            { texto: 'FRETE GRÁTIS', cor: '#00b894' },
+            { texto: '+1 GIRO', cor: '#0984e3' },
+            { texto: 'ORQUÍDEA', cor: '#fdcb6e' },
+            { texto: '🌻 CESTA', cor: '#e17055' }
+        ];
+        var premioFixoIndex = 5;
+        var girandoPopup = false;
+        var rotacaoAtualPopup = 0;
+
+        function desenharRoletaPopup() {
+            var canvas = document.getElementById('roletaPopupCanvas');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            var centro = canvas.width / 2;
+            var raio = centro;
+            var angulo = (2 * Math.PI) / opcoesPopup.length;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < opcoesPopup.length; i++) {
+                var startAngle = i * angulo - Math.PI / 2;
+                var endAngle = startAngle + angulo;
+                ctx.beginPath();
+                ctx.moveTo(centro, centro);
+                ctx.arc(centro, centro, raio, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = opcoesPopup[i].cor;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.save();
+                ctx.translate(centro, centro);
+                ctx.rotate(startAngle + angulo / 2);
+                ctx.textAlign = 'right';
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 12px Nunito, sans-serif';
+                ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                ctx.shadowBlur = 3;
+                ctx.fillText(opcoesPopup[i].texto, raio - 25, 5);
+                ctx.restore();
+            }
+        }
+
+        function girarRoletaPopup() {
+            if (girandoPopup) return;
+            girandoPopup = true;
+            var btn = document.getElementById('btnGirarPopup');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="ph ph-circle-notch" style="animation: spin 1s linear infinite;"></i> GIRANDO...';
+
+            var anguloPorSegmento = 360 / opcoesPopup.length;
+            var anguloAlvo = (360 - (premioFixoIndex * anguloPorSegmento) - (anguloPorSegmento / 2));
+            var voltas = 5 + Math.floor(Math.random() * 3);
+            var rotacaoFinal = (voltas * 360) + anguloAlvo;
+            rotacaoAtualPopup += rotacaoFinal;
+
+            var roleta = document.getElementById('roletaPopup');
+            roleta.style.transform = 'rotate(' + rotacaoAtualPopup + 'deg)';
+
+            setTimeout(function() {
+                document.getElementById('roletaModal').style.display = 'none';
+                mostrarPremioPopup();
+                girandoPopup = false;
+                localStorage.setItem('roletaGirada', '1');
+            }, 4500);
+        }
+
+        function mostrarPremioPopup() {
+            document.getElementById('modalPremioPopup').style.display = 'flex';
+            criarConfettiPopup();
+        }
+
+        function criarConfettiPopup() {
+            var container = document.getElementById('confettiPopup');
+            container.innerHTML = '';
+            var cores = ['#E84393', '#D4A574', '#00b894', '#0984e3', '#fdcb6e', '#e17055', '#fff'];
+            for (var i = 0; i < 60; i++) {
+                var piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+                piece.style.animationDelay = Math.random() * 2 + 's';
+                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+                if (Math.random() > 0.5) piece.style.borderRadius = '50%';
+                container.appendChild(piece);
+            }
+            setTimeout(function() { container.innerHTML = ''; }, 4000);
+        }
+
+        function resgatarPremio() {
+            var userData = localStorage.getItem('florAfetoUser');
+            if (!userData) {
+                document.getElementById('modalPremioPopup').style.display = 'none';
+                localStorage.setItem('roletaPremioPendente', '1');
+                window.location.href = 'conta.html?mode=register&premio=1';
+                return;
+            }
+            var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
+            cart.push({
+                id: 2000,
+                nome: 'Cesta Café com Girassol (Prêmio Roleta)',
+                preco: 0,
+                quantidade: 1,
+                imagem: 'https://i.ibb.co/HfGWJpn7/Bandeja-de-cafe-com-girassol-e-mimos.png',
+                premio: true
+            });
+            localStorage.setItem('florAfetoCart', JSON.stringify(cart));
+            localStorage.setItem('roletaPremioResgatado', '1');
+            window.location.href = 'carrinho.html';
+        }
+
+        function fecharRoleta() {
+            document.getElementById('roletaModal').style.display = 'none';
+        }
+
+        function fecharPremio() {
+            document.getElementById('modalPremioPopup').style.display = 'none';
+        }
+
+        function verificarSeJaGanhou() {
+            var jaGirou = localStorage.getItem('roletaGirada');
+            var jaResgatou = localStorage.getItem('roletaPremioResgatado');
+            
+            if (jaGirou || jaResgatou) return true;
+            
+            var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
+            var temPremio = cart.some(function(item) { return item.id === 2000 || item.premio; });
+            if (temPremio) return true;
+            
+            var userData = localStorage.getItem('florAfetoUser');
+            if (userData) {
+                var user = JSON.parse(userData);
+                if (user.pedidos) {
+                    var temPedidoPremio = user.pedidos.some(function(p) {
+                        return p.itens && p.itens.some(function(i) { return i.id === 2000 || i.premio; });
+                    });
+                    if (temPedidoPremio) return true;
+                }
+            }
+            
+            return false;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!verificarSeJaGanhou()) {
+                setTimeout(function() {
+                    desenharRoletaPopup();
+                    var modal = document.getElementById('roletaModal');
+                    if (modal) modal.style.display = 'flex';
+                }, 500);
+            }
+            var btnAbrir = document.getElementById('btnAbrirRoleta');
+            if (btnAbrir) {
+                btnAbrir.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (verificarSeJaGanhou()) {
+                        alert('Você já resgatou seu prêmio! Cada pessoa pode ganhar apenas uma vez.');
+                        return;
+                    }
+                    desenharRoletaPopup();
+                    document.getElementById('roletaModal').style.display = 'flex';
+                });
+            }
+        });
     </script>
 </body>
 </html>

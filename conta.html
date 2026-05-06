@@ -184,10 +184,29 @@
                             
                             alert('Conta criada com sucesso!');
                             
-                            // Redirect to minha-conta.html
                             var userStr = JSON.stringify(user);
                             var encoded = encodeURIComponent(userStr);
-                            window.location.href = 'minha-conta.html?user=' + encoded;
+                            
+                            // Check if there's a pending prize
+                            var hasPremio = localStorage.getItem('roletaPremioPendente');
+                            if (hasPremio) {
+                                localStorage.removeItem('roletaPremioPendente');
+                                var cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
+                                cart.push({
+                                    id: 2000,
+                                    nome: 'Cesta Café com Girassol (Prêmio Roleta)',
+                                    preco: 0,
+                                    quantidade: 1,
+                                    imagem: 'https://i.ibb.co/HfGWJpn7/Bandeja-de-cafe-com-girassol-e-mimos.png',
+                                    premio: true
+                                });
+                                localStorage.setItem('florAfetoCart', JSON.stringify(cart));
+                                localStorage.setItem('roletaPremioResgatado', '1');
+                                alert('Seu prêmio foi adicionado ao carrinho!');
+                                window.location.href = 'checkout.html?user=' + encoded;
+                            } else {
+                                window.location.href = 'minha-conta.html?user=' + encoded;
+                            }
                         }
                     </script>
                 </form>

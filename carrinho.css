@@ -659,3 +659,46 @@
         height: 60px;
     }
 }
+
+.frete-info-nacional {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #0984e3, #74b9ff);
+    color: #fff;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.frete-info-nacional i {
+    font-size: 1.3rem;
+}
+
+.carrinho-item-preco .premio-badge {
+    background: linear-gradient(135deg, #00b894, #00a085);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-block;
+    box-shadow: 0 3px 10px rgba(0,184,148,0.3);
+}
+.carrinho-item-premio-qtde {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carrinho-item-premio-qtde .quantidade-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: #00b894;
+    color: #fff;
+}

@@ -444,6 +444,25 @@
     transition: var(--transition);
 }
 
+.info-entrega {
+    background: linear-gradient(135deg, #0984e3, #74b9ff);
+    color: var(--white);
+}
+
+.info-entrega i {
+    font-size: 2rem;
+}
+
+.info-entrega strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.info-entrega span {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
 .info-sp {
     background: linear-gradient(135deg, #00b894, #00a085);
     color: var(--white);

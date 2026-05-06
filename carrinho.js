@@ -32,31 +32,48 @@ function renderCarrinho() {
     
     container.innerHTML = cart.map(item => {
         const produto = getProdutoById(item.id);
-        if (!produto) return '';
+        
+        var imagemSrc = item.imagem || (produto ? produto.imagem : '');
+        var categoria = produto ? produto.categoriaNome : '';
+        var nomeDisplay = item.nome || (produto ? produto.nome : '');
+        var isPremio = item.premio || item.id === 2000;
+        var precoDisplay = isPremio ? '<span class="premio-badge">GRÁTIS</span>' : 'R$ ' + (item.preco * item.quantidade).toFixed(2).replace('.', ',');
+        
+        var quantidadeHtml = '';
+        if (isPremio) {
+            quantidadeHtml = '<div class="carrinho-item-quantidade carrinho-item-premio-qtde">' +
+                '<span class="quantidade-num" style="background: #00b894; color: #fff;">1</span>' +
+            '</div>';
+        } else {
+            quantidadeHtml = '<div class="carrinho-item-quantidade">' +
+                '<button class="quantidade-btn" onclick="alterarQuantidade(' + item.id + ', -1)" ' + (item.quantidade <= 1 ? 'disabled' : '') + '>' +
+                    '<i class="ph ph-minus"></i>' +
+                '</button>' +
+                '<span class="quantidade-num">' + item.quantidade + '</span>' +
+                '<button class="quantidade-btn" onclick="alterarQuantidade(' + item.id + ', 1)">+' +
+                    '<i class="ph ph-plus"></i>' +
+                '</button>' +
+            '</div>';
+        }
+        
+        var removerHtml = isPremio ? '' : 
+            '<button class="carrinho-item-remover" onclick="removerItem(' + item.id + ')" title="Remover">' +
+                '<i class="ph ph-trash"></i>' +
+            '</button>';
         
         return `
             <div class="carrinho-item" data-id="${item.id}">
                 <div class="carrinho-item-imagem">
-                    <img src="${produto.imagem}" alt="${item.nome}">
+                    <img src="${imagemSrc}" alt="${nomeDisplay}">
                 </div>
                 <div class="carrinho-item-info">
-                    <span class="carrinho-item-categoria">${produto.categoriaNome}</span>
-                    <h3 class="carrinho-item-nome">${item.nome}</h3>
-                    <span class="carrinho-item-preco">R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
+                    ${categoria ? '<span class="carrinho-item-categoria">' + categoria + '</span>' : ''}
+                    <h3 class="carrinho-item-nome">${nomeDisplay}</h3>
+                    <span class="carrinho-item-preco">${precoDisplay}</span>
                 </div>
                 <div class="carrinho-item-acoes">
-                    <button class="carrinho-item-remover" onclick="removerItem(${item.id})" title="Remover">
-                        <i class="ph ph-trash"></i>
-                    </button>
-                    <div class="carrinho-item-quantidade">
-                        <button class="quantidade-btn" onclick="alterarQuantidade(${item.id}, -1)" ${item.quantidade <= 1 ? 'disabled' : ''}>
-                            <i class="ph ph-minus"></i>
-                        </button>
-                        <span class="quantidade-num">${item.quantidade}</span>
-                        <button class="quantidade-btn" onclick="alterarQuantidade(${item.id}, 1)">
-                            <i class="ph ph-plus"></i>
-                        </button>
-                    </div>
+                    ${removerHtml}
+                    ${quantidadeHtml}
                 </div>
             </div>
         `;
@@ -86,10 +103,17 @@ function removerItem(id) {
     let cart = JSON.parse(localStorage.getItem('florAfetoCart')) || [];
     const item = cart.find(i => i.id === id);
     
-    if (item) {
-        cart = cart.filter(i => i.id !== id);
-        localStorage.setItem('florAfetoCart', JSON.stringify(cart));
-        renderCarrinho();
+    if (!item) return;
+    
+    // Não permitir remover prêmio
+    if (item.premio || item.id === 2000) {
+        showToast('Não é possível remover', 'Este é um prêmio da roleta!');
+        return;
+    }
+    
+    cart = cart.filter(i => i.id !== id);
+    localStorage.setItem('florAfetoCart', JSON.stringify(cart));
+    renderCarrinho();
         showToast('Item removido!', item.nome);
     }
 }
@@ -188,70 +212,31 @@ function calcularFrete() {
             
             estadoEntrega = data.uf;
             
-            if (estadoEntrega === 'SP') {
-                spWarning.style.display = 'none';
-                
-                opcoes.innerHTML = `
-                    <div class="frete-opcao selected" onclick="selecionarFrete(0, 'Sedex', 3, this)">
-                        <div class="frete-opcao-info">
-                            <i class="ph ph-star"></i>
-                            <div>
-                                <div class="frete-opcao-tipo">Sedex Expressa</div>
-                                <div class="frete-opcao-prazo">Chega em até 3 dias úteis</div>
-                            </div>
+            opcoes.innerHTML = `
+                <div class="frete-opcao selected" onclick="selecionarFrete(29, 'SEDEX', 4, this)">
+                    <div class="frete-opcao-info">
+                        <i class="ph ph-truck"></i>
+                        <div>
+                            <div class="frete-opcao-tipo">SEDEX</div>
+                            <div class="frete-opcao-prazo">Chega em 2 a 6 dias úteis</div>
                         </div>
-                        <span class="frete-opcao-valor"><span>R$ 29,90</span> GRÁTIS</span>
                     </div>
-                    <div class="frete-opcao" onclick="selecionarFrete(0, 'PAC', 7, this)">
-                        <div class="frete-opcao-info">
-                            <i class="ph ph-package"></i>
-                            <div>
-                                <div class="frete-opcao-tipo">PAC Standard</div>
-                                <div class="frete-opcao-prazo">Chega em até 7 dias úteis</div>
-                            </div>
-                        </div>
-                        <span class="frete-opcao-valor"><span>R$ 19,90</span> GRÁTIS</span>
-                    </div>
-                    <div class="frete-opcao" onclick="selecionarFrete(0, 'Entrega Expressa', 1, this)">
-                        <div class="frete-opcao-info">
-                            <i class="ph ph-lightning"></i>
-                            <div>
-                                <div class="frete-opcao-tipo">Entrega Expressa</div>
-                                <div class="frete-opcao-prazo">Chega em até 1 dia útil</div>
-                            </div>
-                        </div>
-                        <span class="frete-opcao-valor"><span>R$ 49,90</span> GRÁTIS</span>
-                    </div>
-                    <div class="frete-sp-gratis">
-                        <i class="ph ph-gift"></i>
-                        <span>Parabéns! Você está em São Paulo e ganhou <strong>frete grátis</strong>!</span>
-                    </div>
-                `;
-                
+                    <span class="frete-opcao-valor" id="freteValor">R$ 29,00</span>
+                </div>
+                <div class="frete-info-nacional">
+                    <i class="ph ph-globe-hemisphere-west"></i>
+                    <span>Entrega para todo o Brasil!</span>
+                </div>
+            `;
+            
+            var subtotal = cart.reduce(function(sum, item) { return sum + (item.preco * item.quantidade); }, 0);
+            if (subtotal >= 199) {
                 valorFrete = 0;
-                atualizarResumo();
-                showToast('Frete grátis!', 'Você está em SP e ganha frete grátis!');
+                document.getElementById('freteValor').innerHTML = '<span>R$ 29,00</span> GRÁTIS';
             } else {
-                spWarning.style.display = 'flex';
-                spWarning.innerHTML = `<i class="ph ph-warning-circle"></i> <span>No momento, entregamos apenas no estado de São Paulo. Seu CEP é de ${data.localidade}/${estadoEntrega}.</span>`;
-                
-                opcoes.innerHTML = `
-                    <div class="frete-opcao disabled" style="opacity: 0.5; cursor: not-allowed;">
-                        <div class="frete-opcao-info">
-                            <i class="ph ph-x-circle"></i>
-                            <div>
-                                <div class="frete-opcao-tipo">Fora da área de entrega</div>
-                                <div class="frete-opcao-prazo">No momento, não entregamos na sua região</div>
-                            </div>
-                        </div>
-                        <span class="frete-opcao-valor" style="color: #e74c3c;">Indisponível</span>
-                    </div>
-                `;
-                
-                valorFrete = 0;
-                estadoEntrega = null;
-                atualizarResumo();
+                valorFrete = 29;
             }
+            atualizarResumo();
         })
         .catch(error => {
             opcoes.innerHTML = '<p style="padding: 20px; text-align: center; color: #e74c3c;">Erro ao buscar CEP. Tente novamente.</p>';
